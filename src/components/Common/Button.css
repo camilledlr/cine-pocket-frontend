@@ -1,0 +1,63 @@
+.btn {
+    font-family: inherit;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Tailles */
+  .btn-small {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+  }
+  
+  .btn-medium {
+    font-size: 0.875rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+  }
+  
+  .btn-large {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    width: 80vw;
+    height: 4rem;
+  }
+  
+  /* Couleurs (filled) */
+  .btn-filled.btn-primary {
+    background-color: #1F3654;
+    color: white;
+    border: none;
+  }
+  
+  .btn-filled.btn-secondary {
+    background-color: #F6B236;
+    color: white;
+    border: none;
+  }
+  
+  /* Variante text uniquement */
+  .btn-text {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    text-decoration: underline;
+    padding: 0;
+  }
+  
+  .btn-text:hover {
+    opacity: 0.8;
+  }
+  
+  .btn-icon {
+    display: inline-block;
+    font-size: 1em;
+  }
+  

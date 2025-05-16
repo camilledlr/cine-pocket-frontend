@@ -1,0 +1,32 @@
+.film-recommendations {
+    margin-top: 2rem;
+    padding : 1rem;
+    border: solid #E5DDCD;
+    border-right: none;
+    border-radius: 1rem;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin-left: auto;
+    width: 100%;
+max-width: 100%;
+  }
+  
+  .recommendations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .recommendation-item {
+    font-family: var(--font-text);
+    font-size: 1rem;
+    margin: 0.75rem 0;
+    color: var(--color-text);
+    font-weight: 100;
+  }
+  
+  .recommendation-number {
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+  

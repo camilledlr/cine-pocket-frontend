@@ -1,0 +1,19 @@
+.modale-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .8rem;
+}
+.modale-title {
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-align: center;
+}
+.modale-close {
+  position: absolute;
+  right: 1.7rem;
+  /* top: 1rem; */
+  cursor: pointer;
+  font-size: 2rem;
+}
+

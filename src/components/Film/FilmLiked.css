@@ -1,0 +1,18 @@
+.film-liked{
+    font-size: 2rem;
+    border-color : #F6B236;
+    color: #F6B236;
+}
+
+.liked-button{
+    display: inline-block;
+    font-weight: 400;
+    border-radius: 2.5rem;
+    text-align: center;
+    margin: 0.25rem;
+    border: 1px solid;
+    font-size: 2rem;
+    padding: 1rem;
+    border-color : #F6B236;
+    color: #F6B236;
+}

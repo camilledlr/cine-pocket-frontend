@@ -1,0 +1,27 @@
+.custom-input {
+    padding: 0.6rem 1rem;
+    border: none;
+    font-size: 1.7rem;
+    background-color: inherit;
+    color: #1F3654;
+    outline: none;
+    transition: border-color 0.2s ease;
+    /* height: 8rem; */
+    width: 90%;
+    font-family  : 'Red Hat Text', sans-serif;
+    overflow: 'hidden';
+    resize: 'none';
+    font-weight: 500;
+  }
+.custom-textarea {
+    height: 150vh;
+    font-size: 1.2rem;
+    font-weight: 100;
+  }
+
+    .custom-input::placeholder {
+        font-weight: 500;
+        opacity: 1; /* certains navigateurs baissent l’opacité par défaut */
+    
+        color: #CFCBBF;
+    }

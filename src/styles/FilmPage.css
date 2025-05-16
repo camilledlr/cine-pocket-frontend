@@ -1,0 +1,44 @@
+.film-actions {
+    display: flex;
+  justify-content: center;    /* aligne horizontalement */
+  align-items:center;      /* aligne verticalement (si nécessaire) */
+  flex-direction: column;     /* pour les éléments les uns en dessous des autres */
+  margin : 2rem;
+}
+.film-action {
+   margin :.5em;
+}
+.film-title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 3rem;
+    margin : 0 0 0 0.5rem;
+  
+  }
+  .film-header {
+    display: flex;
+  justify-content: space-between;   /* aligne horizontalement */
+  align-items: center;        /* aligne verticalement (si nécessaire) */
+  flex-direction: row;     /* pour les éléments les uns en dessous des autres */
+}
+
+.film-short-review{
+    font-weight: 500
+}
+.film-long-review{
+    font-weight: 100;
+    overflow-x: hidden;
+  word-wrap: break-word; /* casse les mots trop longs */
+  white-space: normal;
+}
+
+.film-eval{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.film-info-review-section{
+  padding: 1rem;
+}

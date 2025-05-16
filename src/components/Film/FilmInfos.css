@@ -1,0 +1,29 @@
+.film-infos {
+  }
+  
+  .infos-title {
+    font-family: var(--font-display);
+    margin-bottom: 0.5rem;
+  }
+  
+  .infos-director,
+  .infos-actors {
+    font-family: var(--font-text);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .infos-no-info{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  
+  .no-info-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content : space-around;
+  }
+ 

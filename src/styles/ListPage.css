@@ -1,0 +1,42 @@
+.list-film-title{
+    font-size: 1.3rem;
+    font-weight: 600;
+    
+}
+.list-film-details{
+    font-style: italic;
+}
+
+.film-list {
+    padding : 0rem 1.5rem;
+    width: 100%;
+}
+
+.list-item{
+margin: 1rem 0;
+display: flex;
+align-items :center;
+justify-content :space-between;
+justify-items: center;
+width: 100%;
+padding: 0.5rem 0;
+}
+.list-item-text{
+width: 100%;
+}
+
+.list-hype-icon{
+    color: var(--color-accent);
+}
+
+.limited-text {
+    white-space: nowrap;        /* Tout sur une seule ligne */
+    overflow: hidden;           /* Cache ce qui dépasse */
+    text-overflow: ellipsis;    /* Ajoute "..." */
+    width: 95%;               /* Tu dois fixer une largeur */
+  }
+  
+
+  .list-detailed-item{
+    border-bottom: 1px solid #e5ddcd;
+  }

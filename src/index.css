@@ -1,13 +1,75 @@
+
+:root {
+  /* 🎨 Couleurs */
+  --color-bg: #FBF0DA;
+  --color-text: #1F3654;
+  --color-accent: #F6B236;
+  --color-light: #ffffff;
+  --color-dark: #0f172a;
+
+  /* 🖋️ Typographie */
+  --font-family-base: 'Red Hat Text', sans-serif;
+  --font-size-base: 16px;
+  --font-weight-base: 100;
+  --font-size-heading: 2rem;
+  --font-size-subheading: 1.25rem;
+
+  /* 📏 Espacement */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* 🌟 Autres */
+  --border-radius: 8px;
+  --transition: 0.3s ease-in-out;
+}
+
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 1rem;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+  width: 100%;
 }
+
+h1, h2, h3, h4, h5, h6,
+.title, .highlight, .accent {
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 0;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom : 1rem;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.no-info {
+  color: #949BA4 ;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.link{
+  text-decoration: none;
+  color: inherit
 }

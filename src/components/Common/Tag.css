@@ -1,0 +1,34 @@
+.tag {
+    display: inline-block;
+    font-weight: 400;
+    border-radius: 2rem;
+    text-align: center;
+    margin: 0.25rem;
+    border: 1px solid;
+  }
+  
+  .tag-small {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .tag-medium {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .tag-large {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Couleurs (variants) */
+.tag-primary {
+    border-color : #1F3654;
+    color: #1F3654;
+  }
+  
+  .tag-secondary {
+    border-color: #F6B236;
+    color: #F6B236;
+  }

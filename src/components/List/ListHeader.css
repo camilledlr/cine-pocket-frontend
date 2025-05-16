@@ -1,0 +1,21 @@
+.list-header {
+  width: 100vw;
+  border-bottom: 2px solid #e5ddcd;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.header-title-count{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.list-count {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #949BA4;
+}
