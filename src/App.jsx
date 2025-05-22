@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MobileOnly from './components/MobileOnly';
 import Home from './pages/Home';
 import Watchlist from './pages/Watchlist';
 import Seenlist from './pages/Seenlist';
@@ -12,6 +13,7 @@ import ReviewPage from './pages/ReviewPage';
 
 function App() {
   return (
+    // <MobileOnly>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,6 +26,7 @@ function App() {
         <Route path="/films/review/:filmId" element={<ReviewPage />} />
       </Routes>
     </Router>
+    // </MobileOnly>
   );
 }
 

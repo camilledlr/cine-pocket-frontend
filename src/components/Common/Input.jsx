@@ -14,6 +14,13 @@ const Input = ({ inputId, label, textarea, placeholder, value, onChange }) => {
     }
   };
 
+  // const handleFocus = () => {
+  //   // Petite astuce pour attendre que le clavier s'ouvre
+  //   setTimeout(() => {
+  //     textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //   }, 400);
+  // };
+
   return (
     <div>
       {label && <label htmlFor={inputId}>{label}</label>}
@@ -24,12 +31,18 @@ const Input = ({ inputId, label, textarea, placeholder, value, onChange }) => {
         className={`custom-input ${textarea ? "custom-textarea" : ""}`}
         placeholder={placeholder}
         value={value}
+        // onFocus={handleFocus}
+  //       onInput={() => {
+  //   setTimeout(() => {
+  //     textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //   }, 300);
+  // }}
         onChange={handleInputChange}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-          }
-        }}
+        // onKeyDown={(e) => {
+        //   if (e.key === "Enter" && !e.shiftKey) {
+        //     e.preventDefault();
+        //   }
+        // }}
         style={{ overflow: "hidden", resize: "none" }}
       />
     </div>

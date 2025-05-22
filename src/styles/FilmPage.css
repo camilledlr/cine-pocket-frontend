@@ -29,7 +29,7 @@
     font-weight: 100;
     overflow-x: hidden;
   word-wrap: break-word; /* casse les mots trop longs */
-  white-space: normal;
+  white-space: pre-line; /* garde les sauts de ligne */
 }
 
 .film-eval{

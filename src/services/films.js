@@ -149,10 +149,11 @@ export const updateFilmPlatforms = async (filmId, platforms) => {
   }
 };
 
-export const markFilmAsSeen = async (filmId) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/mark-as-watched/${filmId}`, {
+export const markFilmAsSeen = async ({filmId, slug, title}) => {
+  const response = await fetch(`${API_BASE_URL}/api/films/mark-as-watched`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({ filmId, slug, title }),
   });
 
   if (!response.ok) {
@@ -162,6 +163,7 @@ export const markFilmAsSeen = async (filmId) => {
 
   return response.json(); // renvoie { message, film, timesWatched }
 };
+
 
 export const updateFilmReview = async (filmId, { shortReview, longReview, rating }) => {
   const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-review`, {

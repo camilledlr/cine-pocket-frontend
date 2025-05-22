@@ -27,7 +27,11 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
   };
   
   const handleMarkAsSeen = async () => {
-    const updatedFilm = await markAsSeen(filmInfos._id);
+    const updatedFilm = await markAsSeen({
+        filmId: filmInfos._id,
+        slug: filmInfos.slug,
+        title: filmInfos.title,
+      });
     if (updatedFilm) {
       onFilmUpdated(updatedFilm); // met à jour le state local
     }
