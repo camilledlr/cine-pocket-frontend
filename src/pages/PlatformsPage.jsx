@@ -1,12 +1,13 @@
-import { React, useState } from "react";
+import { useEffect, useState } from "react";
 import Modale from "../components/Common/Modale";
-import { updateFilmPlatforms } from "../services/films";
-import { useParams, useLocation, useNavigate, data } from "react-router-dom";
+import { updateFilmPlatforms, getFilmById  } from "../services/films";
+import { useParams, useLocation, useNavigate} from "react-router-dom";
 import Form from "../components/Common/Form";
 import Checkbox from "../components/Common/Checkbox";
 import "../styles/PlatformsPage.css"; // Import CSS file for styling
 
 const PlatformPage = () => {
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const title = location.state?.title;
   const platformsList = [
@@ -17,14 +18,26 @@ const PlatformPage = () => {
     { id: "universciné", label: "Universciné" },
     { id: "france_tv", label: "France TV" },
     { id: "hbo", label: "HBO max" },
+    { id: "cine", label: "Au ciné" },
     { id: "m6", label: "M6 +" },
     { id: "tf1", label: "TF1 +" },
     { id: "vod", label: "VOD" },
     { id: "no_dispo", label: "Indisponible" },
   ];
+  const [film, setFilm] = useState(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const navigate = useNavigate();
   const { filmId } = useParams();
+
+  useEffect(() => {
+                getFilmById(filmId)
+                  .then((fetchedFilm) => {
+                  setFilm(fetchedFilm);
+                  setSelectedPlatforms(fetchedFilm.platform|| []);
+                })
+                  .catch((err) => console.error(err))
+                  .finally(() => setLoading(false));
+              }, [filmId]);
 
   const handleCheckboxChange = (platform) => {
     setSelectedPlatforms((prev) => {

@@ -31,7 +31,7 @@ function Watchlist() {
     <div>
     <NavBar/>
       <ListHeader type='watchlist' title="Watchlist" count={watchlist.films.length}/>
-        <FilmList list={watchlist.films} listType='watchlist'/>
+        <FilmList list={watchlist.films.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))} listType='watchlist'/>
 
     </div>
   );

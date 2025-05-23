@@ -75,7 +75,7 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
           </div>
         )}
         <div className="film-action">
-          {(filmInfos.shortReview || filmInfos.longReview || filmInfos.rating) ? (
+          {(filmInfos.status !== "to watch") && ((filmInfos.shortReview || filmInfos.longReview || filmInfos.rating) ? (
             <Button
               text="Modifier la review"
               icon={<FaPen />}
@@ -91,7 +91,7 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
               size="large"
               variant="text"
               action={ ()=>navigate(`/films/review/${filmInfos._id}`, { state: { title: filmInfos.title } })}
-            />)}
+            />))}
         </div>
       </div>
     </div>

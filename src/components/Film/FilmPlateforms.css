@@ -3,3 +3,12 @@
     align-content: center;
     justify-content: center;
 }
+
+.list-section {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    padding:2rem 1rem;
+}

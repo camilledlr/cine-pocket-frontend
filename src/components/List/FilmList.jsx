@@ -8,7 +8,8 @@ const FilmList = ({ list, listType, detailed='false'}) => {
   return (
     <div className="film-list">
       {list && list.length > 0 ? (
-        list.map((film) => (
+        list
+        .map((film) => (
           <div>
             <Link to={`/films/${film.slug}`} className="link">
               <div className={`list-item ${detailed ? 'list-detailed' : ''}`}>

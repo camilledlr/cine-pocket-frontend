@@ -8,16 +8,16 @@ function FilmRecommendations({filmId, filmTitle, recommendations = [] }) {
 
   return (
     <div className="film-recommendations">
-      {recommendations.length === 0 ? 
-        (<Button text="Ajouter une reco" variant="text" size="large" action={ ()=>navigate(`/films/add-reco/${filmId}`, { state: { title: filmTitle } })}/>) :
+      {recommendations.length > 0 &&
       <ul className="recommendations-list">
         {recommendations.map((rec, index) => (
           <li key={index} className="recommendation-item">
-            <div className="recommendation-number">#{index + 1} Reco</div>
+  
             <div>{rec}</div>
           </li>
         ))}
       </ul>}
+      <Button text="Ajouter une reco" variant="text" size="large" action={ ()=>navigate(`/films/add-reco/${filmId}`, { state: { title: filmTitle } })}/>
     </div>
   );
 }

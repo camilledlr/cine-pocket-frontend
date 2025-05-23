@@ -10,14 +10,15 @@ function FilmPlateforms({title, filmId, platforms = [] }) {
   const navigate = useNavigate();
   
   return (
-    <div>
-      <h3 className="">Dispo sur</h3>
+    <div className="list-section">
+      {/* <h3 className="">Dispo sur</h3> */}
       <div className="list-plateforms">
         {list.map((platform) => (
-          <Tag text={platform.label} variant="secondary" size="large" />
+          <Tag text={platform.label} variant="" size="large" />
         ))}
+      
+      <Button text="+ dispo" color="primary" size="small" action={ ()=>navigate(`/films/platforms/${filmId}`, { state: { title: title } })}/>
       </div>
-      <Button text="Ajouter une dispo" variant="text" size="large" action={ ()=>navigate(`/films/platforms/${filmId}`, { state: { title: title } })}/>
 
     </div>
   );
