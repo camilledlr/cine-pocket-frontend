@@ -15,6 +15,14 @@
     width: 5rem;
     height: 4.3rem
   }
+.film-rating-contener-xlarge {
+  position: absolute;
+  right: 2rem;
+    font-size: 0.8rem;
+    padding: 0.8rem;
+    width: fit-content;
+    height: 4.5rem
+  }
 .film-rating-contener-medium {
     font-size: 0.8rem;
     padding: 0.6rem;
@@ -30,6 +38,10 @@
   
   }
   .rating-large {
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .rating-xlarge {
     font-weight: 700;
     font-size: 2rem;
   }

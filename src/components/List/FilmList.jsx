@@ -1,11 +1,15 @@
 import React from "react";
 import FilmRating from "../Film/FilmRating";
+import ListHeader from "./ListHeader";
 import { Link } from "react-router-dom";
 import { AiFillFire } from "react-icons/ai";
+import { FaSort } from "react-icons/fa";
 
-const FilmList = ({ list, listType, detailed='false'}) => {
+const FilmList = ({title, list, listType, detailed='false', showFilters}) => {
   console.log("list lenght", list);
   return (
+    <>
+    <ListHeader title={title} count={list.length} showFilters={showFilters} />
     <div className="film-list">
       {list && list.length > 0 ? (
         list
@@ -30,6 +34,7 @@ const FilmList = ({ list, listType, detailed='false'}) => {
         <p className="no-info empty-list">La watchlist est vide.</p>
       )}
     </div>
+    </>
   );
 };
 

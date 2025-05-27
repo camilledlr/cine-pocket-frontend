@@ -14,6 +14,8 @@ export const useMarkAsSeen = () => {
         toast({
           message: "Film marqué comme vu !",
           type: "success",
+          actionLabel : "Ajoter une review",
+          onAction : () => navigate(`/films/review/${filmId}`),
         });
         return result.film;
       } else {

@@ -11,8 +11,8 @@
     font-weight: 500;
     z-index: 9999;
     animation: fadeInOut 3s ease forwards;
-    width: 70%;
-    height: 6rem;
+    width: 80%;
+    height: fit-content;
     display: flex;
     /* justify-content: space-between; */
     font-size: 1.2rem;

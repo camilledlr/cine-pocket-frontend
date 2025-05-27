@@ -58,6 +58,7 @@ const ReviewPage = () => {
           <FilmRating
             rating={rating}
             editable={true}
+            size="xlarge"
             onChange={(val) => setRating(val)}
           />
           <Input value={prevShortReview} inputId="shortReview" placeholder="En Bref" onChange={(val) => setPrevShortReview(val)}/>

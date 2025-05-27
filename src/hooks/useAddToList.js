@@ -13,8 +13,8 @@ export const useAddToList = () => {
         toast({
           message: `Ajouté à la watchlist`,
           type: "success",
-          actionLabel : "Ajouter une reco",
-          onAction : () => navigate(-1)
+          actionLabel : "Accéder à la watchlist",
+          onAction : () => navigate(`/watchlist`),
         });
       } else {
         toast({
