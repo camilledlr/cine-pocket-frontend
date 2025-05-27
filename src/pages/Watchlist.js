@@ -7,7 +7,7 @@ import NavBar from '../components/Common/NavBar';
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState({});
-    const [sortBy, setSortBy] = useState("date");
+
     const [filters, setFilters] = useState({ sortBy: 'date' });
 const sortedFilms = (watchlist.films || [])
   .filter((film) => {
@@ -57,7 +57,7 @@ const [showFilters, setShowFilters] = useState(false);
   setFilters(selectedFilters);
   setShowFilters(false);
 }}
-  selectedSort={sortBy}
+  selectedSort={filters.sortBy}
 />
         <FilmList showFilters={setShowFilters} title="Watchlist" list={sortedFilms} listType='watchlist'/>
 
