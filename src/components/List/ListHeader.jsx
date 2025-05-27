@@ -1,6 +1,6 @@
 import React from "react";
 import "./ListHeader.css";
-import { FaSort } from "react-icons/fa";
+import { LuSettings2 } from "react-icons/lu";
 
 const ListHeader = ({ title, count, showFilters}) => {
   return (
@@ -10,7 +10,8 @@ const ListHeader = ({ title, count, showFilters}) => {
       <div className="list-count">({count})</div>
     </div>
     <div className="header-actions">
-      <FaSort onClick={() => showFilters(true)}/>
+    <div></div>
+      <LuSettings2 onClick={() => showFilters(true)}/>
     </div>
     </div>
   );

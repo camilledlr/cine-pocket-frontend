@@ -1,3 +1,7 @@
+.custom-form {
+  padding-bottom: 6rem; /* ou un peu plus si besoin */
+}
+
 .form-button {
   position: fixed;
   bottom: 2rem;

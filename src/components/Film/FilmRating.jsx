@@ -13,6 +13,7 @@ function FilmRating({ rating, size = 'large', editable = false, onChange }) {
             min="1"
             max="10"
             value={rating}
+            placeholder='?'
             onChange={(e) => onChange?.(e.target.value)}
             className={`film-rating-input rating-${size}`}
           />

@@ -21,7 +21,7 @@ const ReviewPage = () => {
     getFilmById(filmId)
       .then((fetchedFilm) => {
       setFilm(fetchedFilm);
-      setRating(fetchedFilm.rating || 0);
+      setRating(fetchedFilm.rating || null);
       setPrevLongReview(fetchedFilm.longReview || null);
       setPrevShortReview(fetchedFilm.shortReview || null);
     })

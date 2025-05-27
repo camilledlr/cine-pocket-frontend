@@ -6,21 +6,16 @@ const Input = ({ inputId, label, textarea, placeholder, value, onChange }) => {
 
   const handleInputChange = (e) => {
     onChange?.(e.target.value);
-
-    // Auto-ajustement de la hauteur
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto'; // reset
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // ajustement
-    }
+  //   // Auto-ajustement de la hauteur
+  //   if (textareaRef.current) {
+  //   setTimeout(() => {
+  //     textareaRef.current.style.height = 'auto'; // reset
+  //     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // ajustement
+  //   }, 0);
+  // }
   };
 
-  // const handleFocus = () => {
-  //   // Petite astuce pour attendre que le clavier s'ouvre
-  //   setTimeout(() => {
-  //     textareaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //   }, 400);
-  // };
-
+  
   return (
     <div>
       {label && <label htmlFor={inputId}>{label}</label>}
@@ -31,6 +26,7 @@ const Input = ({ inputId, label, textarea, placeholder, value, onChange }) => {
         className={`custom-input ${textarea ? "custom-textarea" : ""}`}
         placeholder={placeholder}
         value={value}
+        
         // onFocus={handleFocus}
   //       onInput={() => {
   //   setTimeout(() => {

@@ -19,3 +19,9 @@
   font-weight: 400;
   color: #949BA4;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
