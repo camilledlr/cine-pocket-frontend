@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import { getFiltersData } from "../../services/films";
 import Button from "../Common/Button";
 import { TfiClose } from "react-icons/tfi";
 import "./FilterModal.css";
@@ -7,43 +9,68 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
   const [sortBy, setSortBy] = useState(selectedSort || "");
   const [onlyHyped, setOnlyHyped] = useState(false);
   const [onlyLiked, setOnlyLiked] = useState(false);
-  const [directorFilter, setDirectorFilter] = useState("");
-  const [originFilter, setOriginFilter] = useState("");
-  const [platformFilter, setPlatformFilter] = useState("");
+  const [directorFilter, setDirectorFilter] = useState(null);
+  const [originFilter, setOriginFilter] = useState(null);
+  const [platformFilter, setPlatformFilter] = useState(null);
+
+  const [options, setOptions] = useState({
+    directors: [],
+    origins: [],
+    platforms: [],
+  });
+
+  useEffect(() => {
+    getFiltersData()
+      .then(({ directors, origins, platforms }) => {
+        setOptions({
+          directors: directors.map((d) => ({ value: d, label: d })),
+          origins: origins.map((o) => ({ value: o, label: o })),
+          platforms: platforms.map((p) => ({ value: p, label: p })),
+        });
+      })
+      .catch((err) => console.error("Erreur filtre :", err));
+  }, []);
+
+  const resetFilters = () => {
+    setSortBy("date");
+    setOnlyHyped(false);
+    setOnlyLiked(false);
+    setDirectorFilter(null);
+    setOriginFilter(null);
+    setPlatformFilter(null);
+  };
 
   if (!isOpen) return null;
 
   return (
     <div className="filter-modal">
       <TfiClose className="modale-close" onClick={onClose} />
-      <h2>Filtres & Tri</h2>
       <div className="filter-group">
         {listType === "seenlist" && (
-          <><div className="sort-section">
+          <>
+            <div className="sort-section">
               <h4>Trier par</h4>
               <div className="sort-options">
-                <div className="radio-input">
+                <label>
                   <input
                     type="radio"
-                    id="sort-rating"
                     name="sort"
                     value="rating"
                     checked={sortBy === "rating"}
                     onChange={() => setSortBy("rating")}
                   />
-                  <label htmlFor="sort-date">Note</label>
-                </div>
-                <div className="radio-input">
+                  Note
+                </label>
+                <label>
                   <input
                     type="radio"
-                    id="sort-date"
                     name="sort"
                     value="date"
                     checked={sortBy === "date"}
                     onChange={() => setSortBy("date")}
                   />
-                  <label htmlFor="sort-date">Date de visionnage</label>
-                </div>
+                  Date de visionnage
+                </label>
               </div>
             </div>
             <div className="filters-section">
@@ -56,26 +83,25 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                 Uniquement les films likés
               </label>
               <div className="filter-option">
-                <label>
-                  Réalisateur :
-                  <input
-                    type="text"
-                    value={directorFilter}
-                    onChange={(e) => setDirectorFilter(e.target.value)}
-                    placeholder="Nom du réalisateur"
-                  />
-                </label>
+                <label>Réalisateur :</label>
+                <Select
+                  options={options.directors}
+                  value={directorFilter}
+                  onChange={setDirectorFilter}
+                  placeholder="Choisir un réalisateur"
+                  isClearable
+                  // isMulti={true}
+                />
               </div>
               <div className="filter-option">
-                <label>
-                  Pays d'origine :
-                  <input
-                    type="text"
-                    value={originFilter}
-                    onChange={(e) => setOriginFilter(e.target.value)}
-                    placeholder="Ex : FR, USA"
-                  />
-                </label>
+                <label>Pays d'origine :</label>
+                <Select
+                  options={options.origins}
+                  value={originFilter}
+                  onChange={setOriginFilter}
+                  placeholder="Choisir un pays"
+                  isClearable
+                />
               </div>
             </div>
           </>
@@ -84,30 +110,26 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
           <>
             <div className="sort-section">
               <h4>Trier par</h4>
-              <div className="sort-options">
-                <div className="radio-input">
-                  <input
-                    type="radio"
-                    id="sort-date"
-                    name="sort"
-                    value="date"
-                    checked={sortBy === "date"}
-                    onChange={() => setSortBy("date")}
-                  />
-                  <label htmlFor="sort-date">Date d'ajout</label>
-                </div>
-                <div className="radio-input">
-                  <input
-                    type="radio"
-                    id="sort-hype"
-                    name="sort"
-                    value="hyped"
-                    checked={sortBy === "hyped"}
-                    onChange={() => setSortBy("hyped")}
-                  />
-                  <label htmlFor="sort-date">Hype</label>
-                </div>
-              </div>
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value="date"
+                  checked={sortBy === "date"}
+                  onChange={() => setSortBy("date")}
+                />
+                Date d'ajout
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value="hyped"
+                  checked={sortBy === "hyped"}
+                  onChange={() => setSortBy("hyped")}
+                />
+                Hype
+              </label>
             </div>
             <div className="filters-section">
               <label>
@@ -119,55 +141,61 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                 Uniquement les films hypés
               </label>
               <div className="filter-option">
-                <label>
-                  Réalisateur :
-                  <input
-                    type="text"
-                    value={directorFilter}
-                    onChange={(e) => setDirectorFilter(e.target.value)}
-                    placeholder="Nom du réalisateur"
-                  />
-                </label>
+                <label>Réalisateur :</label>
+                <Select
+                  options={options.directors}
+                  value={directorFilter}
+                  onChange={setDirectorFilter}
+                  placeholder="Choisir un réalisateur"
+                  isClearable
+                />
               </div>
               <div className="filter-option">
-                <label>
-                  Pays d'origine :
-                  <input
-                    type="text"
-                    value={originFilter}
-                    onChange={(e) => setOriginFilter(e.target.value)}
-                    placeholder="Ex : FR, USA"
-                  />
-                </label>
-              </div>
-            <div className="filter-option">
-              <label>
-                Plateforme :
-                <input
-                  type="text"
-                  value={platformFilter}
-                  onChange={(e) => setPlatformFilter(e.target.value)}
-                  placeholder="Nom plateforme"
+                <label>Pays d'origine :</label>
+                <Select
+                  options={options.origins}
+                  value={originFilter}
+                  onChange={setOriginFilter}
+                  placeholder="Choisir un pays"
+                  isClearable
                 />
-              </label>
+              </div>
+              <div className="filter-option">
+                <label>Plateforme :</label>
+                <Select
+                  options={options.platforms}
+                  value={platformFilter}
+                  onChange={setPlatformFilter}
+                  placeholder="Choisir une plateforme"
+                  isClearable
+                />
               </div>
             </div>
           </>
         )}
       </div>
-      <Button
-        text="Appliquer les filtres"
-        size="medium"
-        action={() =>
-          onApply({
-            sortBy,
-            onlyHyped,
-            director: directorFilter,
-            origin: originFilter,
-            platform: platformFilter,
-          })
-        }
-      />
+      <div className="filters-actions">
+        <Button
+          text="Réinitialiser les filtres"
+          size="large"
+          variant="text"
+          action={resetFilters}
+        />
+        <Button
+          text="Appliquer les filtres"
+          size="large"
+          action={() =>
+            onApply({
+              sortBy,
+              onlyHyped,
+              onlyLiked,
+              director: directorFilter?.value || "",
+              origin: originFilter?.value || "",
+              platform: platformFilter?.value || "",
+            })
+          }
+        />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,36 @@
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding-right: 2rem; /* espace pour l’icône */
+padding-left : .5rem;
+  height: 3rem;       /* assure une hauteur standard */
+  line-height: 2.5rem;  /* aligne le texte verticalement */
+  box-sizing: border-box;
+  border-radius: .5rem;
+  
+}
+
+.clear-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #888;
+  line-height: 1; /* évite tout décalage vertical */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-icon:hover {
+  color: #000;
+}
+
+  /* 
+  margin-top: .8rem;
+   */

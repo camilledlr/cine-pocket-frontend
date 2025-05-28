@@ -23,6 +23,25 @@ export const getAllFilms = async () => {
   if (!res.ok) throw new Error('Films non trouvés');
   return res.json();
 };
+
+// GET /api/filters-data
+
+export const getFiltersData = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/films/filters-data`);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Erreur lors de la récupération des données de filtre');
+    }
+
+    const data = await response.json();
+    return data; // { directors: [...], origins: [...], platforms: [...] }
+  } catch (error) {
+    console.error('❌ getFiltersData error:', error);
+    throw error;
+  }
+};
 // GET/api/films/slug
 export const getFilmBySlug = async (slug) => {
   const res = await fetch(`${API_BASE_URL}/api/films/slug/${slug}`);
