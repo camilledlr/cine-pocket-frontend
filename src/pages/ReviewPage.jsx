@@ -3,6 +3,7 @@ import Modale from "../components/Common/Modale";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { updateFilmReview, getFilmById } from "../services/films";
 import Input from "../components/Common/Input";
+import TextArea from "../components/Common/TextArea";
 import FilmRating from "../components/Film/FilmRating";
 import Form from "../components/Common/Form";
 
@@ -62,7 +63,7 @@ const ReviewPage = () => {
             onChange={(val) => setRating(val)}
           />
           <Input value={prevShortReview} inputId="shortReview" placeholder="En Bref" onChange={(val) => setPrevShortReview(val)}/>
-          <Input textarea value={prevLongReview} inputId="longReview" placeholder="En long et en large" onChange={(val) => setPrevLongReview(val)} />
+          <TextArea value={prevLongReview} inputId="longReview" placeholder="En long et en large" onChange={(val) => setPrevLongReview(val)} />
         </Form>
       </Modale>
     </div>

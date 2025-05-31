@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import usePersistentFilters from "../../hooks/usePersistentFilters";
 import Select from "react-select";
 import { getFiltersData } from "../../services/films";
 import Button from "../Common/Button";
@@ -6,12 +7,13 @@ import { TfiClose } from "react-icons/tfi";
 import "./FilterModal.css";
 
 const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
+  const { buildFilterOptions } = usePersistentFilters();
   const [sortBy, setSortBy] = useState(selectedSort || "");
   const [onlyHyped, setOnlyHyped] = useState(false);
   const [onlyLiked, setOnlyLiked] = useState(false);
-  const [directorFilter, setDirectorFilter] = useState(null);
-  const [originFilter, setOriginFilter] = useState(null);
-  const [platformFilter, setPlatformFilter] = useState(null);
+  const [directorFilter, setDirectorFilter] = useState([]);
+  const [originFilter, setOriginFilter] = useState([]);
+  const [platformFilter, setPlatformFilter] = useState([]);
 
   const [options, setOptions] = useState({
     directors: [],
@@ -23,9 +25,9 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
     getFiltersData()
       .then(({ directors, origins, platforms }) => {
         setOptions({
-          directors: directors.map((d) => ({ value: d, label: d })),
-          origins: origins.map((o) => ({ value: o, label: o })),
-          platforms: platforms.map((p) => ({ value: p, label: p })),
+          directors: buildFilterOptions(directors),
+          origins: buildFilterOptions(origins),
+          platforms: buildFilterOptions(platforms),
         });
       })
       .catch((err) => console.error("Erreur filtre :", err));
@@ -35,9 +37,9 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
     setSortBy("date");
     setOnlyHyped(false);
     setOnlyLiked(false);
-    setDirectorFilter(null);
-    setOriginFilter(null);
-    setPlatformFilter(null);
+    setDirectorFilter([]);
+    setOriginFilter([]);
+    setPlatformFilter([]);
   };
 
   if (!isOpen) return null;
@@ -90,7 +92,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                   onChange={setDirectorFilter}
                   placeholder="Choisir un réalisateur"
                   isClearable
-                  // isMulti={true}
+                  isMulti={true}
                 />
               </div>
               <div className="filter-option">
@@ -101,6 +103,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                   onChange={setOriginFilter}
                   placeholder="Choisir un pays"
                   isClearable
+                  isMulti={true}
                 />
               </div>
             </div>
@@ -148,6 +151,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                   onChange={setDirectorFilter}
                   placeholder="Choisir un réalisateur"
                   isClearable
+                  isMulti={true}
                 />
               </div>
               <div className="filter-option">
@@ -158,6 +162,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                   onChange={setOriginFilter}
                   placeholder="Choisir un pays"
                   isClearable
+                  isMulti={true}
                 />
               </div>
               <div className="filter-option">
@@ -168,6 +173,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
                   onChange={setPlatformFilter}
                   placeholder="Choisir une plateforme"
                   isClearable
+                  isMulti={true}
                 />
               </div>
             </div>
@@ -189,9 +195,9 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
               sortBy,
               onlyHyped,
               onlyLiked,
-              director: directorFilter?.value || "",
-              origin: originFilter?.value || "",
-              platform: platformFilter?.value || "",
+              director: directorFilter.map((d) => d.value),
+              origin: originFilter.map((o) => o.value),
+              platform: platformFilter.map((p) => p.value),
             })
           }
         />

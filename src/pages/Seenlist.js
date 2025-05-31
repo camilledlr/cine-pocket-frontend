@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import usePersistentFilters from "../hooks/usePersistentFilters";
 import { getSeenlist } from "../services/lists";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
@@ -7,19 +8,24 @@ import NavBar from "../components/Common/NavBar";
 function Seenlist() {
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({ sortBy: "date" });
+  const { filters, setFiltersFromForm} = usePersistentFilters({ sortBy: "date" });
+  
 
   const sortedFilms = [...(films || [])]
     .filter((film) => {
       if (filters.onlyLiked && !film.liked) return false;
       if (
-        filters.director &&
-        film.director?.toLowerCase() !== filters.director.toLowerCase()
+        filters.director?.length &&
+        !filters.director.some(
+          (dir) => film.director?.toLowerCase() === dir.toLowerCase()
+        )
       )
         return false;
       if (
-        filters.origin &&
-        film.origin?.toLowerCase() !== filters.origin.toLowerCase()
+        filters.origin?.length &&
+        !filters.origin.some(
+          (orig) => film.origin?.toLowerCase() === orig.toLowerCase()
+        )
       )
         return false;
       return true;
@@ -58,7 +64,7 @@ function Seenlist() {
         isOpen={showFilters}
         onClose={() => setShowFilters(false)}
         onApply={(selectedFilters) => {
-          setFilters(selectedFilters);
+          setFiltersFromForm(selectedFilters);
           setShowFilters(false);
         }}
         selectedSort={filters.sortBy}
