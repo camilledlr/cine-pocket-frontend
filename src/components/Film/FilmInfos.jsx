@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Common/Button";
 import "./FilmInfos.css";
 
-function FilmInfos({ title, filmId, director, actors }) {
+function FilmInfos({ title, filmId, infos}) {
   const navigate = useNavigate();
+  const director = infos?.director || null;
+  const origin = infos?.origin || null;
+  const actors = infos?.actors || [];
 
   return (
     <div className="film-infos">
@@ -26,12 +29,17 @@ function FilmInfos({ title, filmId, director, actors }) {
           <div className="infos-section">
         {director && (
           <p>
-            Par <span className="infos-director">{director}</span>
+            par <span className="infos-director">{director}</span>
           </p>
         )}
         {actors?.length > 0 && (
           <p>
-            Avec <span className="infos-actors">{actors.join(", ")}</span>
+            avec <span className="infos-actors">{actors.join(", ")}</span>
+          </p>
+        )}
+        {origin && (
+          <p>
+            de  <span className="infos-actors">{origin}</span>
           </p>
         )}
         <Button

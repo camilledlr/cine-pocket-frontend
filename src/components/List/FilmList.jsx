@@ -2,6 +2,7 @@ import React from "react";
 import FilmRating from "../Film/FilmRating";
 import ListHeader from "./ListHeader";
 import { Link } from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
 import { AiFillFire } from "react-icons/ai";
 import { FaSort } from "react-icons/fa";
 
@@ -33,6 +34,10 @@ const FilmList = ({title, list, listType, detailed='false', showFilters}) => {
         <p className="no-info empty-list">La watchlist est vide.</p>
       )}
     </div>
+    <ScrollToTop smooth style={{
+    background: '#FBF0DA',
+    color: '#1F3654',
+  }} />
     </>
   );
 };

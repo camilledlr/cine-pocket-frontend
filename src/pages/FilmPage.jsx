@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 import { useLoading } from "../context/LoadingContext";
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
@@ -20,8 +21,8 @@ function FilmPage() {
   // et gérer l'état de chargement
    useEffect(() => {
       const fetchFilm = async () => {
-        setLoading(true);
-        const MIN_DELAY = 500;
+        // setLoading(true);
+        const MIN_DELAY = 0;
         const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
   
         try {
@@ -40,6 +41,12 @@ function FilmPage() {
 
 
   return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
     <div>
     {!film && <FilmTemplate filmInfos={{title : title, slug}} onFilmUpdated={setFilm}/> }
     {film && (
@@ -60,11 +67,12 @@ function FilmPage() {
           <p className="film-long-review">{film.longReview}</p>
         )}
       
-      <FilmInfos title={title} filmId={film._id} director={film.director} actors={film.actors} />
+      <FilmInfos title={title} filmId={film._id}  infos={film} />
       </div>
       </div>
       )}
     </div>
+    </motion.div>
   );
 }
 

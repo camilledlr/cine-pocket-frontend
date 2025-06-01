@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import {useLoading } from './context/LoadingContext';
 import Loader from './components/Common/Loader';
 import MobileOnly from './components/MobileOnly';
@@ -18,6 +19,7 @@ function App() {
   return (
     // <MobileOnly>
     <Router>
+    <AnimatePresence mode="wait">
     {loading && <Loader />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,6 +31,7 @@ function App() {
         <Route path="/films/platforms/:filmId" element={<PlatformsPage />} />
         <Route path="/films/review/:filmId" element={<ReviewPage />} />
       </Routes>
+      </AnimatePresence>
     </Router>
     // </MobileOnly>
   );

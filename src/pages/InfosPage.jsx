@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 import Modale from "../components/Common/Modale";
-import { updateFilmCrew, getFilmById } from "../services/films";
+import { updateFilmInfos, getFilmById } from "../services/films";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import Form from "../components/Common/Form";
@@ -14,6 +14,7 @@ const InfosPage = () => {
   const { filmId } = useParams();
   const [film, setFilm] = useState(null);
   const [director, setDirector] = useState(null);
+  const [origin, setOrigin] = useState(null);
   const [actors, setActors] = useState(null);
 
   useEffect(() => {
@@ -24,9 +25,9 @@ const InfosPage = () => {
 
       try {
         const [fetchedFilm] = await Promise.all([getFilmById(filmId), delay]);
-
         setFilm(fetchedFilm);
         setDirector(fetchedFilm.director || null);
+        setOrigin(fetchedFilm.origin || null);
         setActors((fetchedFilm.actors || []).join(", "));
       } catch (err) {
         console.error(err);
@@ -48,9 +49,10 @@ const InfosPage = () => {
 
   const handleUpdate = async (data) => {
     try {
-      const result = await updateFilmCrew(filmId, {
+      const result = await updateFilmInfos(filmId, {
         director: data.director,
         actors: parseCommaSeparated(data.actors),
+        origin: data.origin,
       });
       if (result && result.message) {
         setTimeout(() => navigate(-1), 500); // ← retour en arrière après 500ms
@@ -84,6 +86,13 @@ const InfosPage = () => {
             inputId="actors"
             placeholder="des acteurs marquants..."
             onChange={(val) => setActors(val)}
+          />
+          <Input
+            value={origin}
+            label="de"
+            inputId="origin"
+            placeholder="un pays de cinéma..."
+            onChange={(val) => setOrigin(val)}
           />
         </Form>
       </Modale>
