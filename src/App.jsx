@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {useLoading } from './context/LoadingContext';
+import Loader from './components/Common/Loader';
 import MobileOnly from './components/MobileOnly';
 import Home from './pages/Home';
 import Watchlist from './pages/Watchlist';
@@ -12,9 +14,11 @@ import ReviewPage from './pages/ReviewPage';
 
 
 function App() {
+  const { loading } = useLoading();
   return (
     // <MobileOnly>
     <Router>
+    {loading && <Loader />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/watchlist" element={<Watchlist />} />

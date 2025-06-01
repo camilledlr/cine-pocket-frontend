@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import usePersistentFilters from "../hooks/usePersistentFilters";
+import { useLoading } from '../context/LoadingContext';
 import { getWatchlist } from "../services/lists";
 import "../styles/ListPage.css";
 import FilmList from "../components/List/FilmList";
@@ -49,24 +50,32 @@ function Watchlist() {
     });
 
   const [showFilters, setShowFilters] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { setLoading } = useLoading();
   const [error, setError] = useState("");
 
   // Récupération de la watchlist depuis l'API
   useEffect(() => {
-    getWatchlist()
-      .then((data) => {
-        setWatchlist(data);
-
+    const fetchWatchlist = async () => {
+      setLoading(true);
+      const MIN_DELAY = 500;
+      const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
+  
+      try {
+        const [data] = await Promise.all([
+          getWatchlist(),
+          delay,
+        ]);
+        setWatchlist(data|| []);
+      } catch (error) {
+        console.error("Erreur :", error.message);
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      }
+    };
+  
+    fetchWatchlist();
   }, []);
 
-  if (loading) return <p>Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
   return (

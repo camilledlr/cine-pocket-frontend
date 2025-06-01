@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import usePersistentFilters from "../hooks/usePersistentFilters";
+import { useLoading } from "../context/LoadingContext";
 import { getSeenlist } from "../services/lists";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
@@ -7,9 +8,11 @@ import NavBar from "../components/Common/NavBar";
 
 function Seenlist() {
   const [films, setFilms] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { filters, setFiltersFromForm} = usePersistentFilters({ sortBy: "date" });
-  
+
+  const { filters, setFiltersFromForm } = usePersistentFilters({
+    sortBy: "date",
+  });
+  const { setLoading } = useLoading();
 
   const sortedFilms = [...(films || [])]
     .filter((film) => {
@@ -41,20 +44,28 @@ function Seenlist() {
     });
 
   useEffect(() => {
-    getSeenlist()
-      .then((data) => {
+    const fetchSeenlist = async () => {
+      setLoading(true);
+      const MIN_DELAY = 500;
+      const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
+
+      try {
+        const [data] = await Promise.all([
+          getSeenlist(), // appel à ton service
+          delay, // garantit un temps minimal
+        ]);
         setFilms(data.films || []);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Erreur :", error.message);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchSeenlist();
   }, []);
 
   const [showFilters, setShowFilters] = useState(false);
-
-  if (loading) return <p>Chargement...</p>;
 
   return (
     <div>
