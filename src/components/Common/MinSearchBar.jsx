@@ -1,31 +1,44 @@
-import React from 'react'
+import React from 'react';
+import useSearchLogic from "../../hooks/useSearchLogic";
+import Tag from "../Common/Tag";
+import { IoIosSearch } from "react-icons/io";
+import './MinSearchBar.css';
 
-const MinSearchBar = () => {
-const [query, setQuery] = React.useState('');
-
-const handleChange = (e) => {
-    setQuery(e.target.value);
-};
-
-const handleSubmit = (e) => {
-    e.preventDefault();
-    // Ajoutez ici la logique de recherche si besoin
-    console.log('Recherche:', query);
-};
+const MinSearchBar = ({allFilms,  onFocus, onBlur}) => {
+const {
+    query,
+    setQuery,
+    suggestions,
+    handleSubmit,
+    handleSuggestionClick,
+  } = useSearchLogic(allFilms);
 
 return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
-        {/* <input
-            type="text"
-            placeholder="Rechercher..."
-            value={query}
-            onChange={handleChange}
-            style={{ padding: '6px 12px', borderRadius: '4px', border: '1px solid #ccc', flex: 1 }}
+    <div className="mini-search-container">
+      <form onSubmit={handleSubmit} className="mini-search-form">
+        <input
+          className="mini-search-input"
+          placeholder="Rechercher un film ..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        //   onFocus={onFocus}
+        //   onBlur={onBlur}
         />
-        <button type="submit" style={{ marginLeft: '8px', padding: '6px 16px', borderRadius: '4px', border: 'none', background: '#1976d2', color: '#fff' }}>
-            Chercher
-        </button> */}
-    </form>
+      </form>
+
+      {suggestions.length > 0 && (
+        <ul className="mini-suggestion-list">
+          {suggestions.map((film) => (
+            <li key={film._id} onClick={() => handleSuggestionClick(film)}>
+              {film.title}
+              {film.status === "to watch" && <Tag variant="secondary" text="A voir" size="medium" />}
+              {film.status === "to_rewatch" && <Tag text="A revoir" variant="secondary" size="medium" />}
+              {film.status === "watched" && <Tag text="Vu" size="medium" />}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
 )
 }
 

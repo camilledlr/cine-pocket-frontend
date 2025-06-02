@@ -5,11 +5,13 @@
     text-align: center;
     margin: 0.25rem;
     border: 1px solid;
+    min-width: fit-content;
   }
   
   .tag-small {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
+
   }
   
   .tag-medium {
