@@ -14,7 +14,9 @@ export default function usePersistentFilters(defaults = {}) {
     origin: getFilterArray(searchParams, "origin"),
     platform: getFilterArray(searchParams, "platform"),
   }), [searchParams]);
-
+  
+// Function to set filters based on form input
+  // This function updates the URL search parameters based on the selected filters
   const setFiltersFromForm = (selectedFilters) => {
     const params = new URLSearchParams();
 
@@ -29,6 +31,7 @@ export default function usePersistentFilters(defaults = {}) {
     setSearchParams(params);
   };
 
+  // Helper function to build options for Select components
   const buildFilterOptions = (list) =>
     list.map((item) => ({ value: item, label: item }));
 

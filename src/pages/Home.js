@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Menu from '../components/Menu';
 import MainSearchBar from '../components/Home/MainSearchBar';
 import NavBar from '../components/Common/NavBar';
+import Button from '../components/Common/Button';
 
 function Home() {
   const [allFilms, setAllFilms] = useState([]);
@@ -25,6 +26,10 @@ useEffect(() => {
       <NavBar/>
       <MainSearchBar allFilms={allFilms}/>
       <Menu />
+      <Button
+      size='large'
+        action={() => window.location.href = "/what-to-watch"}
+        text="On regarde quoi ?" />
     </div>
     </motion.div>
   );

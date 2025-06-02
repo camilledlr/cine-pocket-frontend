@@ -11,6 +11,7 @@ import RecoPage from './pages/RecoPage';
 import InfosPage from './pages/InfosPage';
 import PlatformsPage from './pages/PlatformsPage';
 import ReviewPage from './pages/ReviewPage';
+import WhatToWatch from './pages/WhatToWatch';
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/what-to-watch" element={<WhatToWatch />} />
         <Route path="/seenlist" element={<Seenlist />} />
         <Route path="/films/:slug" element={<FilmPage />} />
         <Route path="/films/add-reco/:filmId" element={<RecoPage />} />

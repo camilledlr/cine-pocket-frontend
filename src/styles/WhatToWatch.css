@@ -1,0 +1,16 @@
+.results-container {
+    /* background-color: aqua; */
+    justify-content: center;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.what-to-watch-page{
+    height: 100%;
+}
+
+.page-title{
+    text-align: center;
+    font-weight: 700;
+}
