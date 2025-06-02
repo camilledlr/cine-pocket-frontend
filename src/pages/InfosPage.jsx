@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 import { useLoading } from "../context/LoadingContext";
 import Modale from "../components/Common/Modale";
 import { updateFilmInfos, getFilmById } from "../services/films";
@@ -18,26 +19,20 @@ const InfosPage = () => {
   const [actors, setActors] = useState(null);
 
   useEffect(() => {
-    const fetchFilm = async () => {
-      setLoading(true);
-      const MIN_DELAY = 500;
-      const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
+  const fetchFilm = async () => {
+    try {
+      const fetchedFilm = await getFilmById(filmId);
+      setFilm(fetchedFilm);
+      setDirector(fetchedFilm.director || null);
+      setOrigin(fetchedFilm.origin || null);
+      setActors((fetchedFilm.actors || []).join(", "));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-      try {
-        const [fetchedFilm] = await Promise.all([getFilmById(filmId), delay]);
-        setFilm(fetchedFilm);
-        setDirector(fetchedFilm.director || null);
-        setOrigin(fetchedFilm.origin || null);
-        setActors((fetchedFilm.actors || []).join(", "));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFilm();
-  }, [filmId]);
+  fetchFilm();
+}, [filmId]);
 
   function parseCommaSeparated(text) {
     if (!text) return [];
@@ -70,6 +65,12 @@ const InfosPage = () => {
   };
 
   return (
+    <motion.div
+    initial={{ opacity: 0, x: 0 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 0 }}
+      transition={{ duration: 0.3 }}
+    >
     <div>
       <Modale modaleTitle={title}>
         <Form onSubmit={handleUpdate}>
@@ -97,6 +98,7 @@ const InfosPage = () => {
         </Form>
       </Modale>
     </div>
+    </motion.div>
   );
 };
 

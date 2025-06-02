@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MinSearchBar from './MinSearchBar';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -8,6 +9,7 @@ const NavBar = () => {
             <div className="navbar-logo">
                 <Link to="/"><img src="/logo.svg" alt="Ciné Pocket" className="home-logo" /></Link>
             </div>
+            <MinSearchBar  />
         </nav>
     );
 };

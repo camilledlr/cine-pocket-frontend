@@ -12,8 +12,8 @@
     font-weight: 900;
     font-size: 3rem;
     margin : 0 0 0 0.5rem;
-
-  
+    display: flex;
+    justify-content: center; /* aligne horizontalement */
   }
   .film-header {
     display: flex;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
 import usePersistentFilters from "../hooks/usePersistentFilters";
 import { useLoading } from '../context/LoadingContext';
 import { getWatchlist } from "../services/lists";
@@ -55,30 +56,27 @@ function Watchlist() {
 
   // Récupération de la watchlist depuis l'API
   useEffect(() => {
-    const fetchWatchlist = async () => {
-      setLoading(true);
-      const MIN_DELAY = 500;
-      const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
-  
-      try {
-        const [data] = await Promise.all([
-          getWatchlist(),
-          delay,
-        ]);
-        setWatchlist(data|| []);
-      } catch (error) {
-        console.error("Erreur :", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchWatchlist();
-  }, []);
+  const fetchWatchlist = async () => {
+    try {
+      const data = await getWatchlist();
+      setWatchlist(data || []);
+    } catch (error) {
+      console.error("Erreur :", error.message);
+    }
+  };
+
+  fetchWatchlist();
+}, []);
 
   if (error) return <p>Erreur : {error}</p>;
 
   return (
+       <motion.div
+      initial={{ opacity: 1, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 1, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
     <div>
       <NavBar />
       <FilterModal
@@ -98,6 +96,7 @@ function Watchlist() {
         listType="watchlist"
       />
     </div>
+    </motion.div>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import usePersistentFilters from "../hooks/usePersistentFilters";
+import { motion } from "framer-motion";
 import { useLoading } from "../context/LoadingContext";
 import { getSeenlist } from "../services/lists";
 import FilmList from "../components/List/FilmList";
@@ -43,22 +44,35 @@ function Seenlist() {
       return 0;
     });
 
+  // useEffect(() => {
+  //   const fetchSeenlist = async () => {
+  //     setLoading(true);
+  //     const MIN_DELAY = 500;
+  //     const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
+
+  //     try {
+  //       const [data] = await Promise.all([
+  //         getSeenlist(), // appel à ton service
+  //         delay, // garantit un temps minimal
+  //       ]);
+  //       setFilms(data.films || []);
+  //     } catch (error) {
+  //       console.error("Erreur :", error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchSeenlist();
+  // }, []);
+
   useEffect(() => {
     const fetchSeenlist = async () => {
-      setLoading(true);
-      const MIN_DELAY = 500;
-      const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
-
       try {
-        const [data] = await Promise.all([
-          getSeenlist(), // appel à ton service
-          delay, // garantit un temps minimal
-        ]);
+        const data = await getSeenlist();
         setFilms(data.films || []);
       } catch (error) {
         console.error("Erreur :", error.message);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -68,25 +82,32 @@ function Seenlist() {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <div>
-      <NavBar />
-      <FilterModal
-        listType="seenlist"
-        isOpen={showFilters}
-        onClose={() => setShowFilters(false)}
-        onApply={(selectedFilters) => {
-          setFiltersFromForm(selectedFilters);
-          setShowFilters(false);
-        }}
-        selectedSort={filters.sortBy}
-      />
-      <FilmList
-        showFilters={setShowFilters}
-        title="Films vus"
-        type="seenlist"
-        list={sortedFilms}
-      />
-    </div>
+    <motion.div
+      initial={{ opacity: 1, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 1, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div>
+        <NavBar />
+        <FilterModal
+          listType="seenlist"
+          isOpen={showFilters}
+          onClose={() => setShowFilters(false)}
+          onApply={(selectedFilters) => {
+            setFiltersFromForm(selectedFilters);
+            setShowFilters(false);
+          }}
+          selectedSort={filters.sortBy}
+        />
+        <FilmList
+          showFilters={setShowFilters}
+          title="Films vus"
+          type="seenlist"
+          list={sortedFilms}
+        />
+      </div>
+    </motion.div>
   );
 }
 

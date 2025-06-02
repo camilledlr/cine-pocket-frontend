@@ -8,6 +8,7 @@ import FilmPlateforms from "../components/Film/FilmPlateforms";
 import FilmInfos from "../components/Film/FilmInfos";
 import FilmRecommendations from "../components/Film/FilmRecommendations";
 import FilmTemplate from "../components/Film/FilmTemplate";
+import SkeletonText from "../components/Common/SkeletonText";
 import "../styles/FilmPage.css";
 
 function FilmPage() {
@@ -19,34 +20,29 @@ function FilmPage() {
 
   // Fonction pour récupérer les informations du film par son slug
   // et gérer l'état de chargement
-   useEffect(() => {
-      const fetchFilm = async () => {
-        // setLoading(true);
-        const MIN_DELAY = 0;
-        const delay = new Promise((res) => setTimeout(res, MIN_DELAY));
-  
-        try {
-          const [fetchedFilm] = await Promise.all([getFilmBySlug(slug), delay]);
-          setFilm(fetchedFilm);
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchFilm();
-    }, [slug]);
+useEffect(() => {
+  const fetchFilm = async () => {
+    try {
+      const fetchedFilm = await getFilmBySlug(slug);
+      setFilm(fetchedFilm);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchFilm();
+}, [slug]);
 
 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
-    >
+  initial={{ opacity: 1, x: 100 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 1, x: 100 }}
+  transition={{ duration: 0.3 }}
+>
+
     <div>
     {!film && <FilmTemplate filmInfos={{title : title, slug}} onFilmUpdated={setFilm}/> }
     {film && (
