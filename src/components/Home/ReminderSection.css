@@ -1,0 +1,25 @@
+.reminder-section {
+    padding: 3rem 0;
+}
+.reminder-section h3{
+    padding: 0 1rem;
+}
+
+
+.reminder-list {
+  display: flex;
+  gap: 2rem;                 /* espace entre les cards */
+  overflow-x: auto;          /* scroll horizontal */
+  padding-bottom: 0.5rem;    /* petit espace sous les cards */
+  scrollbar-width: thin;     /* Firefox */
+}
+
+.reminder-list::-webkit-scrollbar {
+  height: 8px;               /* taille scrollbar */
+}
+
+.reminder-list::-webkit-scrollbar-thumb {
+  background: #888;          /* couleur scrollbar */
+  border-radius: 4px;
+}
+

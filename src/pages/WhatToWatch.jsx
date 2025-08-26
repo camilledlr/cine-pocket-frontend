@@ -5,17 +5,13 @@ import Select from "react-select";
 import usePersistentFilters from "../hooks/usePersistentFilters";
 import Card from "../components/List/Card";
 import Button from "../components/Common/Button";
-import "../styles/WhatToWatch.css"; 
+import "../styles/WhatToWatch.css";
 
 const WhatToWatch = () => {
-  const chooseRandomFilm = (list) => {
-    if (!list || list.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * list.length);
-    return list[randomIndex];
-  };
-
+  const [watchlist, setWatchlist] = useState({});
   const { buildFilterOptions } = usePersistentFilters();
   const [showResults, setShowResults] = useState(false);
+  const [chosenFilm, setChosenFilm] = useState(null);
   const [onlyHyped, setOnlyHyped] = useState(false);
   const [platformsFilter, setPlatformsFilter] = useState([]);
   const [tagsFilter, setTagsFilter] = useState([]);
@@ -23,7 +19,6 @@ const WhatToWatch = () => {
     platforms: [],
     tags: [],
   });
-  const [watchlist, setWatchlist] = useState({});
 
   const sortedFilms = (watchlist.films || []).filter((film) => {
     if (onlyHyped && !film.hyped) return false;
@@ -48,7 +43,14 @@ const WhatToWatch = () => {
       return false;
     return true;
   });
-  console.log("sorted Films", sortedFilms);
+
+  const chooseRandomFilm = (list) => {
+    if (!list || list.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * list.length);
+    setChosenFilm(list[randomIndex]);
+    return list[randomIndex];
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,45 +76,77 @@ const WhatToWatch = () => {
     <div className="what-to-watch-page">
       <h3 className="page-title">On regarde quoi ?</h3>
       {!showResults && (
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={onlyHyped}
-              onChange={(e) => setOnlyHyped(e.target.checked)}
+        <div className="filters-container">
+          <div className="input-container">
+            <h4>Parmi </h4>
+            <label className="custom-checkbox-container">
+              <input
+              className="custom-checkbox"
+                type="checkbox"
+                checked={onlyHyped}
+                onChange={(e) => setOnlyHyped(e.target.checked)}
+              />
+              Les films hypés ?
+            </label>
+          </div>
+          <div className="input-container">
+            <h4>Dispo sur </h4>
+            <Select
+              options={options.platforms}
+              value={platformsFilter}
+              onChange={setPlatformsFilter}
+              placeholder="Netflix, Prime Vidéo, Disney+..."
+              isClearable
+              isMulti={true}
             />
-            Les films hypés
-          </label>
-
-          <Select
-            options={options.platforms}
-            value={platformsFilter}
-            onChange={setPlatformsFilter}
-            placeholder="Netflix, Prime Vidéo, Disney+..."
-            isClearable
-            isMulti={true}
-          />
-          <Select
-            options={options.tags}
-            value={tagsFilter}
-            onChange={setTagsFilter}
-            placeholder="Comédie, Drama..."
-            isClearable
-            isMulti={true}
-          />
-          <Button
-            text="Lancer la recherche"
-            size="large"
-            action={() => {
-              setShowResults(true);
-              chooseRandomFilm(sortedFilms);
-            }}
-          />
+          </div>
+          <div className="input-container">
+            <h4>Du genre </h4>
+            <Select
+              options={options.tags}
+              value={tagsFilter}
+              onChange={setTagsFilter}
+              placeholder="Comédie, Drama..."
+              isClearable
+              isMulti={true}
+            />
+          </div>
+          <div className="filters-actions">
+            <Button
+              text="Lancer la recherche"
+              size="large"
+              action={() => {
+                setShowResults(true);
+                chooseRandomFilm(sortedFilms);
+              }}
+            />
+          </div>
         </div>
       )}
       {showResults && (
         <div className="results-container">
-        <Card film={chooseRandomFilm(sortedFilms)}/>
+          {chosenFilm ? (
+            <Card film={chosenFilm} />
+          ) : (
+            <div>Aucun film trouvé avec ces critères.</div>
+          )}
+          <div className="results-actions">
+            <Button
+              text="Relancer la recherche"
+              size="large"
+              action={() => {
+                chooseRandomFilm(sortedFilms);
+              }}
+            />
+            <Button
+              text="Changer les critères"
+              variant="text"
+              size="large"
+              action={() => {
+                setShowResults(false);
+              }}
+            />
+          </div>
         </div>
       )}
     </div>

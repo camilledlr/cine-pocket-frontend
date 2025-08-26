@@ -1,7 +1,29 @@
+.filters-container {
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    gap: 2rem;
+    font-size: 1.3rem;
+    padding : 1.5rem;
+}
+.filters-container  h4{
+margin-bottom: 1rem;
+}
+.filters-actions {
+    position: fixed;
+    bottom: 3rem;
+}
 .results-container {
-    /* background-color: aqua; */
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    height: 80vh;
+    padding-top: 3rem;
+}
+.results-actions {
     justify-content: center;
-    height: 70vh;
+    flex-direction: column;
     display: flex;
     align-items: center;
 }

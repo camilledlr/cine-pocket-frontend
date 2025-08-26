@@ -18,8 +18,13 @@ export const addFilm = async (filmData) => {
 
 // GET/api/films/all-titles'
 export const getAllFilms = async () => {
-  console.log('Fetching all films');
   const res = await fetch(`${API_BASE_URL}/api/films/all-titles`);
+  if (!res.ok) throw new Error('Films non trouvés');
+  return res.json();
+};
+// GET/api/films/to-review'
+export const getToReview = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/films/to-review`);
   if (!res.ok) throw new Error('Films non trouvés');
   return res.json();
 };

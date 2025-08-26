@@ -3,6 +3,7 @@ import { getAllFilms } from "../services/films";
 import { motion } from "framer-motion";
 import Menu from '../components/Menu';
 import MainSearchBar from '../components/Home/MainSearchBar';
+import ReminderSection from '../components/Home/ReminderSection';
 import NavBar from '../components/Common/NavBar';
 import Button from '../components/Common/Button';
 
@@ -25,11 +26,13 @@ useEffect(() => {
     <div className="home">
       <NavBar/>
       <MainSearchBar allFilms={allFilms}/>
+      
       <Menu />
       <Button
       size='large'
         action={() => window.location.href = "/what-to-watch"}
         text="On regarde quoi ?" />
+        <ReminderSection />
     </div>
     </motion.div>
   );
