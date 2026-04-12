@@ -4,7 +4,6 @@ import ListHeader from "./ListHeader";
 import { Link } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import { AiFillFire } from "react-icons/ai";
-import { FaSort } from "react-icons/fa";
 
 const FilmList = ({title, list, listType, detailed='false', showFilters}) => {
   return (

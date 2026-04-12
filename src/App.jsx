@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import {useLoading } from './context/LoadingContext';
 import Loader from './components/Common/Loader';
-import MobileOnly from './components/MobileOnly';
 import Home from './pages/Home';
 import Watchlist from './pages/Watchlist';
 import Seenlist from './pages/Seenlist';

@@ -13,7 +13,7 @@ export default function usePersistentFilters(defaults = {}) {
     director: getFilterArray(searchParams, "director"),
     origin: getFilterArray(searchParams, "origin"),
     platform: getFilterArray(searchParams, "platform"),
-  }), [searchParams]);
+  }), [searchParams, defaults.sortBy]);
   
 // Function to set filters based on form input
   // This function updates the URL search parameters based on the selected filters

@@ -7,7 +7,6 @@ import "./Form.css";
 const Form = ({ onSubmit, children }) => {
   const toast = useToast();
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
 
 useEffect(() => {
   const handleViewportResize = () => {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
-import { useLoading } from "../context/LoadingContext";
 import Modale from "../components/Common/Modale";
 import { updateFilmInfos, getFilmById } from "../services/films";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -11,9 +10,7 @@ const InfosPage = () => {
   const location = useLocation();
   const title = location.state?.title;
   const navigate = useNavigate();
-  const { setLoading } = useLoading();
   const { filmId } = useParams();
-  const [film, setFilm] = useState(null);
   const [director, setDirector] = useState(null);
   const [origin, setOrigin] = useState(null);
   const [actors, setActors] = useState(null);
@@ -22,7 +19,6 @@ const InfosPage = () => {
   const fetchFilm = async () => {
     try {
       const fetchedFilm = await getFilmById(filmId);
-      setFilm(fetchedFilm);
       setDirector(fetchedFilm.director || null);
       setOrigin(fetchedFilm.origin || null);
       setActors((fetchedFilm.actors || []).join(", "));

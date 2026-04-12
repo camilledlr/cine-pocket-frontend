@@ -1,7 +1,6 @@
 import React from 'react';
 import useSearchLogic from "../../hooks/useSearchLogic";
 import Tag from "../Common/Tag";
-import { IoIosSearch } from "react-icons/io";
 import './MinSearchBar.css';
 
 const MinSearchBar = ({allFilms,  onFocus, onBlur}) => {

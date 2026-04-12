@@ -12,7 +12,6 @@ const ReviewPage = () => {
   const navigate = useNavigate();
   const { filmId } = useParams();
   const title = location.state?.title;
-  const [film, setFilm] = useState(null);
   const [prevShortReview, setPrevShortReview] = useState(null);
   const [prevLongReview, setPrevLongReview] = useState(null);
   const [rating, setRating] = useState(0);
@@ -21,7 +20,6 @@ const ReviewPage = () => {
   useEffect(() => {
     getFilmById(filmId)
       .then((fetchedFilm) => {
-      setFilm(fetchedFilm);
       setRating(fetchedFilm.rating || null);
       setPrevLongReview(fetchedFilm.longReview || null);
       setPrevShortReview(fetchedFilm.shortReview || null);

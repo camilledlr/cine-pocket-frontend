@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useSearchLogic from "../../hooks/useSearchLogic";
 import Tag from "../Common/Tag";
 import "./MainSearchBar.css";

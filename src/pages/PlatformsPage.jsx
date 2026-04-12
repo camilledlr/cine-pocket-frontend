@@ -7,7 +7,6 @@ import Checkbox from "../components/Common/Checkbox";
 import "../styles/PlatformsPage.css"; // Import CSS file for styling
 
 const PlatformPage = () => {
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const title = location.state?.title;
   const platformsList = [
@@ -24,7 +23,6 @@ const PlatformPage = () => {
     { id: "vod", label: "VOD" },
     { id: "no_dispo", label: "Indisponible" },
   ];
-  const [film, setFilm] = useState(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const navigate = useNavigate();
   const { filmId } = useParams();
@@ -32,11 +30,9 @@ const PlatformPage = () => {
   useEffect(() => {
                 getFilmById(filmId)
                   .then((fetchedFilm) => {
-                  setFilm(fetchedFilm);
                   setSelectedPlatforms(fetchedFilm.platform|| []);
                 })
-                  .catch((err) => console.error(err))
-                  .finally(() => setLoading(false));
+                  .catch((err) => console.error(err));
               }, [filmId]);
 
   const handleCheckboxChange = (platform) => {

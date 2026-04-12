@@ -31,7 +31,7 @@ const FilterModal = ({ listType, isOpen, onClose, onApply, selectedSort }) => {
         });
       })
       .catch((err) => console.error("Erreur filtre :", err));
-  }, []);
+  }, [buildFilterOptions]);
 
   const resetFilters = () => {
     setSortBy("date");

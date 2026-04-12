@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
-import { useLoading } from "../context/LoadingContext";
 import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { getFilmBySlug } from "../services/films";
@@ -8,13 +7,11 @@ import FilmPlateforms from "../components/Film/FilmPlateforms";
 import FilmInfos from "../components/Film/FilmInfos";
 import FilmRecommendations from "../components/Film/FilmRecommendations";
 import FilmTemplate from "../components/Film/FilmTemplate";
-import SkeletonText from "../components/Common/SkeletonText";
 import "../styles/FilmPage.css";
 
 function FilmPage() {
   const { slug } = useParams();
   const [film, setFilm] = useState(null);
-   const { setLoading } = useLoading();
   const location = useLocation();
   const title = location.state?.title;
 
