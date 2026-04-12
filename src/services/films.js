@@ -22,6 +22,18 @@ export const getAllFilms = async () => {
   if (!res.ok) throw new Error('Films non trouvés');
   return res.json();
 };
+// GET/api/films/watched
+export const getWatchedFilms = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/films/watched`);
+  if (!res.ok) throw new Error('Films vus non trouvés');
+  return res.json();
+};
+// GET/api/films/watched-count/:year
+export const getWatchedCount = async (year) => {
+  const res = await fetch(`${API_BASE_URL}/api/films/watched-count/${year}`);
+  if (!res.ok) throw new Error('Comptage films vus non trouvé');
+  return res.json();
+};
 // GET/api/films/to-review'
 export const getToReview = async () => {
   const res = await fetch(`${API_BASE_URL}/api/films/to-review`);

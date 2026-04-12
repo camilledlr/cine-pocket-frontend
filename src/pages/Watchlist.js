@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import usePersistentFilters from "../hooks/usePersistentFilters";
-import { useLoading } from '../context/LoadingContext';
 import { getWatchlist } from "../services/lists";
+import { useCachedData } from "../hooks/useCachedData";
 import "../styles/ListPage.css";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
 
 function Watchlist() {
-  const [watchlist, setWatchlist] = useState({});
+  const { data: watchlist, refresh, error } = useCachedData(
+    'cinePocket_watchlist',
+    getWatchlist,
+    { films: [] }
+  );
   const { filters, setFiltersFromForm} =
     usePersistentFilters({ sortBy: "date" });
 
@@ -51,24 +55,17 @@ function Watchlist() {
     });
 
   const [showFilters, setShowFilters] = useState(false);
-  const { setLoading } = useLoading();
-  const [error, setError] = useState("");
 
-  // Récupération de la watchlist depuis l'API
   useEffect(() => {
-  const fetchWatchlist = async () => {
-    try {
-      const data = await getWatchlist();
-      setWatchlist(data || []);
-    } catch (error) {
-      console.error("Erreur :", error.message);
-    }
-  };
+    const handleUpdate = () => {
+      refresh().catch(() => {});
+    };
 
-  fetchWatchlist();
-}, []);
+    window.addEventListener('watchlistUpdated', handleUpdate);
+    return () => window.removeEventListener('watchlistUpdated', handleUpdate);
+  }, [refresh]);
 
-  if (error) return <p>Erreur : {error}</p>;
+  if (error) return <p>Erreur : {error.message || String(error)}</p>;
 
   return (
        <motion.div

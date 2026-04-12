@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import usePersistentFilters from "../hooks/usePersistentFilters";
 import { motion } from "framer-motion";
-import { useLoading } from "../context/LoadingContext";
 import { getSeenlist } from "../services/lists";
+import { useCachedData } from "../hooks/useCachedData";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
 
 function Seenlist() {
-  const [films, setFilms] = useState([]);
+  const { data: films, refresh } = useCachedData(
+    'cinePocket_seenlist',
+    getSeenlist,
+    []
+  );
 
   const { filters, setFiltersFromForm } = usePersistentFilters({
     sortBy: "date",
   });
-  const { setLoading } = useLoading();
 
   const sortedFilms = [...(films || [])]
     .filter((film) => {
@@ -67,17 +70,13 @@ function Seenlist() {
   // }, []);
 
   useEffect(() => {
-    const fetchSeenlist = async () => {
-      try {
-        const data = await getSeenlist();
-        setFilms(data.films || []);
-      } catch (error) {
-        console.error("Erreur :", error.message);
-      }
+    const handleUpdate = () => {
+      refresh().catch(() => {});
     };
 
-    fetchSeenlist();
-  }, []);
+    window.addEventListener('seenlistUpdated', handleUpdate);
+    return () => window.removeEventListener('seenlistUpdated', handleUpdate);
+  }, [refresh]);
 
   const [showFilters, setShowFilters] = useState(false);
 

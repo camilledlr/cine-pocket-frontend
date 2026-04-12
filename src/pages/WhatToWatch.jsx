@@ -3,12 +3,17 @@ import { getFiltersData } from "../services/films";
 import { getWatchlist } from "../services/lists";
 import Select from "react-select";
 import usePersistentFilters from "../hooks/usePersistentFilters";
+import { useCachedData } from "../hooks/useCachedData";
 import Card from "../components/List/Card";
 import Button from "../components/Common/Button";
 import "../styles/WhatToWatch.css";
 
 const WhatToWatch = () => {
-  const [watchlist, setWatchlist] = useState({});
+  const { data: watchlist, refresh } = useCachedData(
+    'cinePocket_watchlist',
+    getWatchlist,
+    { films: [] }
+  );
   const { buildFilterOptions } = usePersistentFilters();
   const [showResults, setShowResults] = useState(false);
   const [chosenFilm, setChosenFilm] = useState(null);
@@ -52,25 +57,29 @@ const WhatToWatch = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchFilters = async () => {
       try {
-        const [watchlistData, filtersData] = await Promise.all([
-          getWatchlist(),
-          getFiltersData(),
-        ]);
-
-        setWatchlist(watchlistData || []);
+        const filtersData = await getFiltersData();
         setOptions({
           platforms: buildFilterOptions(filtersData.platforms),
           tags: buildFilterOptions(filtersData.tags),
         });
       } catch (error) {
-        console.error("Erreur chargement données :", error.message);
+        console.error("Erreur chargement filtres :", error.message);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchFilters();
+  }, [buildFilterOptions]);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      refresh().catch(() => {});
+    };
+
+    window.addEventListener('watchlistUpdated', handleUpdate);
+    return () => window.removeEventListener('watchlistUpdated', handleUpdate);
+  }, [refresh]);
 
   return (
     <div className="what-to-watch-page">

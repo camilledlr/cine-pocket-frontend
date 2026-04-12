@@ -16,6 +16,7 @@ export const useAddToList = () => {
           actionLabel : "Accéder à la watchlist",
           onAction : () => navigate(`/watchlist`),
         });
+        window.dispatchEvent(new Event('watchlistUpdated'));
       } else {
         toast({
           message: `${result.error}`,

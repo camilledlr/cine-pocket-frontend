@@ -17,6 +17,10 @@ export const useMarkAsSeen = () => {
           actionLabel : "Ajoter une review",
           onAction : () => navigate(`/films/review/${filmId}`),
         });
+        const year = new Date().getFullYear();
+        window.dispatchEvent(new CustomEvent('filmMarkedAsSeen', { detail: { year } }));
+        window.dispatchEvent(new Event('watchlistUpdated'));
+        window.dispatchEvent(new Event('seenlistUpdated'));
         return result.film;
       } else {
         toast({
