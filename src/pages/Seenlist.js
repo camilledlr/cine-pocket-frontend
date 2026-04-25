@@ -8,17 +8,18 @@ import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
 
 function Seenlist() {
-  const { data: films, refresh } = useCachedData(
+  const { data: list, refresh } = useCachedData(
     'cinePocket_seenlist',
     getSeenlist,
     []
   );
+  console.log("Films vus :", list.films);
 
   const { filters, setFiltersFromForm } = usePersistentFilters({
     sortBy: "date",
   });
 
-  const sortedFilms = [...(films || [])]
+  const sortedFilms = [...(list.films|| [])]
     .filter((film) => {
       if (filters.onlyLiked && !film.liked) return false;
       if (
