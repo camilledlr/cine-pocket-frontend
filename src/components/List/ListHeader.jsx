@@ -16,10 +16,10 @@ const ListHeader = ({ title, count, showFilters, filters}) => {
       <Tag text={filters.watchYear} variant="primary-fill"/>
   )}
 
-    {filters.director?.map(dir => (
+    {filters  && filters.director?.map(dir => (
     <Tag text={dir} variant="primary-fill"/>
   ))}
-    {filters.origin?.map(orig => (
+    {filters  && filters.origin?.map(orig => (
     <Tag text={orig} variant="primary-fill"/>
   ))}
   </div>
