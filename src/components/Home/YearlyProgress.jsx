@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getWatchedCount } from '../../services/films';
 import './YearlyProgress.css';
 
@@ -8,6 +9,7 @@ const YearlyProgress = () => {
   });
   const goal = 52;
   const year = 2026;
+  const goalCount = Math.round((new Date() - new Date(year, 0, 1)) / (1000 * 60 * 60 * 24 * 7));
 
   // Synchroniser avec le backend au chargement si possible
   useEffect(() => {
@@ -41,17 +43,24 @@ const YearlyProgress = () => {
   }, [year]);
 
   const progressPercentage = Math.min((watchedCount / goal) * 100, 100);
+  const goalPercentage = Math.min((goalCount / goal) * 100, 100);
 
   return (
     <div className="yearly-progress">
-      <h3>Films vus en 2026</h3>
-      <p>{watchedCount} / {goal} films</p>
+      <h3>Objectif 52 Films {'\uD83C\uDFAF'}</h3>
+      <p>{watchedCount} vus en {goalCount} semaines</p>
       <div className="progress-bar">
+        <div
+          className="goal-fill"
+          style={{ width: `${goalPercentage}%` }}
+        ></div>
         <div
           className="progress-fill"
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>
+      <Link to="/seenlist">Voir les films</Link>
+
     </div>
   );
 };
