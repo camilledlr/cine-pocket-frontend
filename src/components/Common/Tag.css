@@ -30,6 +30,11 @@
     color: #1F3654;
   }
   
+.tag-primary-fill {
+    background-color: #1F3654;
+    color: #FBF0DA;
+  }
+  
   .tag-secondary {
     border-color: #F6B236;
     color: #F6B236;

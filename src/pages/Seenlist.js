@@ -17,7 +17,7 @@ function Seenlist() {
   const { filters, setFiltersFromForm } = usePersistentFilters({
     sortBy: "date",
   });
-console.log('list', list.films);
+
   const sortedFilms = [...(list.films|| [])]
     .filter((film) => {
       if (filters.onlyLiked && !film.liked) return false;
@@ -104,6 +104,7 @@ console.log('list', list.films);
           showFilters={setShowFilters}
           title="Films vus"
           type="seenlist"
+          filters={filters} 
           list={sortedFilms}
         />
       </div>

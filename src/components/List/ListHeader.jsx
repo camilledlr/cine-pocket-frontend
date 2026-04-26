@@ -1,8 +1,9 @@
 import React from "react";
+import Tag from "../Common/Tag";  
 import "./ListHeader.css";
 import { LuSettings2 } from "react-icons/lu";
 
-const ListHeader = ({ title, count, showFilters}) => {
+const ListHeader = ({ title, count, showFilters, filters}) => {
   return (
     <div className="list-header">
     <div className="header-title-count">
@@ -10,7 +11,18 @@ const ListHeader = ({ title, count, showFilters}) => {
       <div className="list-count">({count})</div>
     </div>
     <div className="header-actions">
-    <div></div>
+    <div>
+    {filters  && filters.watchYear && (
+      <Tag text={filters.watchYear} variant="primary-fill"/>
+  )}
+
+    {filters.director?.map(dir => (
+    <Tag text={dir} variant="primary-fill"/>
+  ))}
+    {filters.origin?.map(orig => (
+    <Tag text={orig} variant="primary-fill"/>
+  ))}
+  </div>
       <LuSettings2 onClick={() => showFilters(true)}/>
     </div>
     </div>
