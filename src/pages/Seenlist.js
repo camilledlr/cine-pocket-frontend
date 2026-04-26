@@ -13,15 +13,15 @@ function Seenlist() {
     getSeenlist,
     []
   );
-  console.log("Films vus :", list.films);
 
   const { filters, setFiltersFromForm } = usePersistentFilters({
     sortBy: "date",
   });
-
+console.log('list', list.films);
   const sortedFilms = [...(list.films|| [])]
     .filter((film) => {
       if (filters.onlyLiked && !film.liked) return false;
+      if (filters.watchYear && !film.watchedDates.some(date => new Date(date).getFullYear() === Number(filters.watchYear))) return false;
       if (
         filters.director?.length &&
         !filters.director.some(

@@ -59,7 +59,7 @@ const YearlyProgress = () => {
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>
-      <Link to="/seenlist">Voir les films</Link>
+      <Link to="/seenlist?sortBy=date&watchYear=2026">Voir les films</Link>
 
     </div>
   );

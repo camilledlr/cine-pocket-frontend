@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 
+// Helper function to extract multiple values for a given filter from URL search parameters
 const getFilterArray = (params, name) => params.getAll(name).filter(Boolean);
 
 export default function usePersistentFilters(defaults = {}) {
@@ -8,6 +9,7 @@ export default function usePersistentFilters(defaults = {}) {
 
   const filters = useMemo(() => ({
     sortBy: searchParams.get("sortBy") || defaults.sortBy || "date",
+      watchYear: searchParams.get("watchYear") || null,
     onlyHyped: searchParams.get("onlyHyped") === "true",
     onlyLiked: searchParams.get("onlyLiked") === "true",
     director: getFilterArray(searchParams, "director"),
@@ -23,6 +25,7 @@ export default function usePersistentFilters(defaults = {}) {
     if (selectedFilters.sortBy) params.set("sortBy", selectedFilters.sortBy);
     if (selectedFilters.onlyHyped) params.set("onlyHyped", "true");
     if (selectedFilters.onlyLiked) params.set("onlyLiked", "true");
+    if (selectedFilters.watchYear) params.set("watchYear", selectedFilters.watchYear);
 
     selectedFilters.director.forEach((d) => params.append("director", d));
     selectedFilters.origin.forEach((o) => params.append("origin", o));
