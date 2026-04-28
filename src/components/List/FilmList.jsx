@@ -6,7 +6,6 @@ import ScrollToTop from "react-scroll-to-top";
 import { AiFillFire } from "react-icons/ai";
 
 const FilmList = ({title, list, listType, detailed='false', showFilters, filters}) => {
-  console.log('filters in FilmList', filters);
   return (
     <>
     <ListHeader title={title} count={list.length} showFilters={showFilters} filters={filters} />

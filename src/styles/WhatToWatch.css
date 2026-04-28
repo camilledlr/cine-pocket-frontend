@@ -30,9 +30,68 @@ margin-bottom: 1rem;
 
 .what-to-watch-page{
     height: 100%;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.close-button {
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    z-index: 100;
+}
+
+.close-button:hover {
+    opacity: 0.7;
 }
 
 .page-title{
     text-align: center;
     font-weight: 700;
 }
+
+.picking-stack {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    margin-top: 2rem;
+}
+
+.stack-card {
+    position: absolute;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+    transform: translateY(calc(var(--pos) * -10px)) scale(calc(1 - var(--pos) * 0.05));
+    opacity: calc(1 - var(--pos) * 0.18);
+    z-index: calc(10 - var(--pos));
+    pointer-events: none;
+}
+
+.stack-card--leaving {
+    transform: translateX(-130%) rotate(-12deg);
+    opacity: 0;
+    transition: transform 0.35s ease-in, opacity 0.35s ease-in;
+    z-index: 20;
+}
+
+.picking-stack--revealed .stack-card {
+    animation: reveal-bounce 0.6s ease-out forwards;
+    pointer-events: auto;
+}
+
+@keyframes reveal-bounce {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    60% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1.04); opacity: 1; }
+}
+
