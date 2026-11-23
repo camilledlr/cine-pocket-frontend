@@ -42,3 +42,10 @@
 .film-info-review-section{
   padding: 1rem;
 }
+
+/* Contenu de la page film : au moins la hauteur de l'écran (moins le padding
+   haut + bas du body) pour que le bouton "Supprimer le film" soit sous la ligne de flottaison */
+.film-page-content {
+  min-height: calc(100vh - 2rem);  /* navigateurs anciens */
+  min-height: calc(100lvh - 2rem); /* hauteur max de l'écran (barres du navigateur masquées) */
+}

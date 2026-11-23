@@ -7,6 +7,7 @@ import FilmPlateforms from "../components/Film/FilmPlateforms";
 import FilmInfos from "../components/Film/FilmInfos";
 import FilmRecommendations from "../components/Film/FilmRecommendations";
 import FilmTemplate from "../components/Film/FilmTemplate";
+import DeleteFilmButton from "../components/Film/DeleteFilmButton";
 import "../styles/FilmPage.css";
 
 function FilmPage() {
@@ -44,6 +45,9 @@ useEffect(() => {
     {!film && <FilmTemplate filmInfos={{title : title, slug}} onFilmUpdated={setFilm}/> }
     {film && (
       <div>
+      {/* Occupe au moins toute la hauteur de l'écran : le bouton de suppression
+          est ainsi toujours juste sous le bas de l'écran, visible en scrollant un peu */}
+      <div className="film-page-content">
       <FilmTemplate filmInfos={film} onFilmUpdated={setFilm}/>
       {film.status === "to watch" && (
         <FilmRecommendations filmId={film._id} filmTitle={film.title} recommendations={film.recommendations} />
@@ -62,6 +66,9 @@ useEffect(() => {
       
       <FilmInfos title={title} filmId={film._id}  infos={film} />
       </div>
+      </div>
+
+      <DeleteFilmButton slug={film.slug} title={film.title} />
       </div>
       )}
     </div>

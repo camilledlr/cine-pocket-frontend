@@ -40,3 +40,17 @@ export const getListById = async (id) => {
 //   return res.json();
 // };
 
+
+// DELETE /api/lists/:listType/films/:slug
+export const removeFilmFromList = async (listType, slug) => {
+  const res = await fetch(
+    `${API_BASE_URL}/api/lists/${encodeURIComponent(listType)}/films/${encodeURIComponent(slug)}`,
+    { method: 'DELETE' }
+  );
+  if (!res.ok) {
+    throw new Error(`Erreur lors de la suppression du film de la ${listType}`);
+  }
+  // 204 No Content : pas de body à parser
+  if (res.status === 204) return null;
+  return res.json();
+};

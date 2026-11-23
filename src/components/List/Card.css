@@ -7,7 +7,7 @@
     box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
     text-decoration: none;
 }
-.card-image{
+.card-image-container{
     background-color: var(--color-accent);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -15,10 +15,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+.card-image{
+   height: 90%;
+    width: 90%;
+    object-fit: cover;   /* ← le bon choix dans 99% des cas pour des affiches */
+  display: block;
+  
 }
 
 .card-infos{
 padding: 1rem;
 text-decoration: none;
 }
-
+ /* width: 100px;
+  height: auto; */

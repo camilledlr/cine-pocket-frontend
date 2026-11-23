@@ -1,0 +1,16 @@
+/* Zone "action définitive" en bas de la page film */
+.delete-film {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5ddcd; /* même séparateur que les listes */
+}
+
+/* Bouton texte du composant Button, passé en rouge (même rouge que .toast-error et le swipe) */
+.delete-film .btn-text {
+  color: #dc3545;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}

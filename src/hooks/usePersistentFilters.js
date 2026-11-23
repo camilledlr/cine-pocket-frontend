@@ -4,6 +4,12 @@ import { useMemo } from "react";
 // Helper function to extract multiple values for a given filter from URL search parameters
 const getFilterArray = (params, name) => params.getAll(name).filter(Boolean);
 
+// Helper function to build options for Select components.
+// Defined outside the hook so its reference stays stable between renders
+// (it is used as a useEffect dependency in FilterModal).
+const buildFilterOptions = (list) =>
+  list.map((item) => ({ value: item, label: item }));
+
 export default function usePersistentFilters(defaults = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -33,10 +39,6 @@ export default function usePersistentFilters(defaults = {}) {
 
     setSearchParams(params);
   };
-
-  // Helper function to build options for Select components
-  const buildFilterOptions = (list) =>
-    list.map((item) => ({ value: item, label: item }));
 
   return { filters, setFiltersFromForm, buildFilterOptions };
 }

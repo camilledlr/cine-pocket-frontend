@@ -27,6 +27,47 @@ width: 80%;
 
 }
 
+/* Ligne swipable : la zone d'action est derrière, le contenu glisse par-dessus */
+.list-row {
+    position: relative;
+    overflow: hidden;
+    /* Déborde jusqu'au bord droit de l'écran (padding body 1rem + .film-list .5rem)
+       pour que le fond jaune du swipe touche le bord */
+    margin-right: -1.5rem;
+}
+
+/* Fond révélé pendant le swipe : seulement la partie découverte, poubelle calée à droite */
+.list-swipe-action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0; /* piloté par le swipe (FilmListItem) */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #dc3545; /* même rouge que .toast-error */
+    color: var(--color-light);
+    font-size: 1.3rem;
+}
+
+/* L'espace à droite est sur l'icône et pas sur le fond :
+   un padding sur le fond l'empêcherait de descendre à 0 px de large */
+.list-swipe-icon {
+    display: flex;
+    flex-shrink: 0;
+    padding-right: 1rem;
+}
+
+.list-swipe-content {
+    position: relative; /* passe au-dessus de la zone d'action */
+    display: flow-root; /* garde la marge de .list-item À L'INTÉRIEUR du fond */
+    background-color: var(--color-bg); /* cache la zone d'action au repos */
+    padding-right: 1.5rem; /* compense le margin-right négatif de .list-row : le contenu ne bouge pas */
+    touch-action: pan-y; /* le scroll vertical reste au navigateur */
+}
+
 .list-hype-icon{
     color: var(--color-accent);
 }

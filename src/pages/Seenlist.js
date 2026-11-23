@@ -103,7 +103,7 @@ function Seenlist() {
         <FilmList
           showFilters={setShowFilters}
           title="Films vus"
-          type="seenlist"
+          listType="seenlist"
           filters={filters} 
           list={sortedFilms}
         />

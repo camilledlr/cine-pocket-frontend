@@ -222,3 +222,18 @@ export const updateFilmReview = async (filmId, { shortReview, longReview, rating
 
   return response.json(); // renvoie { message, film }
 };
+
+// DELETE /api/films/slug/:slug
+// Supprime définitivement le film : retiré de toutes les listes puis de la base
+export const deleteFilm = async (slug) => {
+  const response = await fetch(`${API_BASE_URL}/api/films/slug/${encodeURIComponent(slug)}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Erreur lors de la suppression du film');
+  }
+
+  return response.json(); // renvoie { message, slug, listsUpdated }
+};
