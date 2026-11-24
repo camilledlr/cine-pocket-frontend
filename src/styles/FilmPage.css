@@ -10,13 +10,12 @@
 .film-title {
     text-align: center;
     font-weight: 900;
-    font-size: 2.2rem;
     margin : 0 0 0 0.5rem;
     display: flex;
     justify-content: center; /* aligne horizontalement */
   }
   .film-title h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   .film-header {
     display: flex;
