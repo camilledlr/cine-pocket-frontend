@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { FiCheck, FiX } from "react-icons/fi";
 import { useToast } from "../../context/ToastContext";
 import { updateFilmTitle } from "../../services/films";
+import { useLongPress } from "../../hooks/useLongPress";
 import "./FilmTitle.css";
 
 // Durée de l'appui prolongé avant de passer en mode édition
 const LONG_PRESS_MS = 600;
-// Au-delà de ce déplacement (px), on considère que l'utilisateur scrolle : on annule l'appui
-const MOVE_TOLERANCE = 10;
 
 // Titre du film, renommable par appui prolongé (un simple tap ne fait rien)
 const FilmTitle = ({ film, onFilmUpdated }) => {
@@ -16,17 +15,19 @@ const FilmTitle = ({ film, onFilmUpdated }) => {
   const toast = useToast();
 
   const [editing, setEditing] = useState(false);
-  const [pressing, setPressing] = useState(false);
   const [value, setValue] = useState(film.title || "");
   const [saving, setSaving] = useState(false);
 
-  const timerRef = useRef(null);
-  const startPosRef = useRef(null);
   const inputRef = useRef(null);
 
-  const canEdit = Boolean(film._id);
-
-  useEffect(() => () => clearTimeout(timerRef.current), []);
+  const { pressing, handlers: longPressHandlers } = useLongPress({
+    delay: LONG_PRESS_MS,
+    disabled: !film._id,
+    onLongPress: () => {
+      setValue(film.title || "");
+      setEditing(true);
+    },
+  });
 
   useEffect(() => {
     if (editing && inputRef.current) {
@@ -34,37 +35,6 @@ const FilmTitle = ({ film, onFilmUpdated }) => {
       inputRef.current.select();
     }
   }, [editing]);
-
-  const cancelPress = () => {
-    clearTimeout(timerRef.current);
-    timerRef.current = null;
-    startPosRef.current = null;
-    setPressing(false);
-  };
-
-  const handlePointerDown = (e) => {
-    if (!canEdit || e.button > 0) return;
-    startPosRef.current = { x: e.clientX, y: e.clientY };
-    setPressing(true);
-    timerRef.current = setTimeout(() => {
-      timerRef.current = null;
-      setPressing(false);
-      if (navigator.vibrate) navigator.vibrate(15);
-      setValue(film.title || "");
-      setEditing(true);
-    }, LONG_PRESS_MS);
-  };
-
-  const handlePointerMove = (e) => {
-    const start = startPosRef.current;
-    if (!start) return;
-    if (
-      Math.abs(e.clientX - start.x) > MOVE_TOLERANCE ||
-      Math.abs(e.clientY - start.y) > MOVE_TOLERANCE
-    ) {
-      cancelPress();
-    }
-  };
 
   const exitEditing = () => {
     setEditing(false);
@@ -153,12 +123,7 @@ const FilmTitle = ({ film, onFilmUpdated }) => {
   return (
     <h1
       className={`film-title-text${pressing ? " is-pressing" : ""}`}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={cancelPress}
-      onPointerLeave={cancelPress}
-      onPointerCancel={cancelPress}
-      onContextMenu={(e) => canEdit && e.preventDefault()}
+      {...longPressHandlers}
     >
       {film.title}
     </h1>

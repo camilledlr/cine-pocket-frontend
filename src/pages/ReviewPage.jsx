@@ -5,6 +5,7 @@ import { updateFilmReview, getFilmById } from "../services/films";
 import Input from "../components/Common/Input";
 import TextArea from "../components/Common/TextArea";
 import FilmRating from "../components/Film/FilmRating";
+import FilmTears from "../components/Film/FilmTears";
 import Form from "../components/Common/Form";
 
 const ReviewPage = () => {
@@ -15,12 +16,14 @@ const ReviewPage = () => {
   const [prevShortReview, setPrevShortReview] = useState(null);
   const [prevLongReview, setPrevLongReview] = useState(null);
   const [rating, setRating] = useState(0);
+  const [tearsLevel, setTearsLevel] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getFilmById(filmId)
       .then((fetchedFilm) => {
       setRating(fetchedFilm.rating || null);
+      setTearsLevel(fetchedFilm.tearsLevel || null);
       setPrevLongReview(fetchedFilm.longReview || null);
       setPrevShortReview(fetchedFilm.shortReview || null);
     })
@@ -54,12 +57,15 @@ const ReviewPage = () => {
     <div>
       <Modale modaleTitle={title}>
         <Form onSubmit={handleSubmitReview}>
-          <FilmRating
-            rating={rating}
-            editable={true}
-            size="xlarge"
-            onChange={(val) => setRating(val)}
-          />
+          <div className="review-scores">
+            <FilmRating
+              rating={rating}
+              editable={true}
+              size="xlarge"
+              onChange={(val) => setRating(val)}
+            />
+            <FilmTears filmId={filmId} initialLevel={tearsLevel} />
+          </div>
           <Input value={prevShortReview} inputId="shortReview" placeholder="En Bref" onChange={(val) => setPrevShortReview(val)}/>
           <TextArea value={prevLongReview} inputId="longReview" placeholder="En long et en large" onChange={(val) => setPrevLongReview(val)} />
         </Form>

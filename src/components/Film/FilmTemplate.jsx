@@ -7,6 +7,7 @@ import Button from "../Common/Button";
 import Tag from "../Common/Tag";
 import SkeletonText from "../Common/SkeletonText";
 import FilmRating from "../Film/FilmRating";
+import FilmTearsBadge from "../Film/FilmTearsBadge";
 import FilmLiked from "../Film/FilmLiked";
 import FilmTitle from "../Film/FilmTitle";
 import "../../styles/FilmPage.css";
@@ -51,6 +52,7 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
             filmId={filmInfos._id}
           />
           {filmInfos.rating && <FilmRating rating={filmInfos.rating} />}
+          <FilmTearsBadge level={filmInfos.tearsLevel} />
         </div>
       </div>
       <div className="film-title">

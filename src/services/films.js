@@ -254,3 +254,20 @@ export const updateFilmTitle = async (filmId, newTitle) => {
 
   return response.json(); // renvoie { message, oldSlug, film }
 };
+
+// PUT /api/films/:id/update-tears-level
+// tearsLevel : entier de 1 à 5, ou null pour retirer l'alarme
+export const updateFilmTearsLevel = async (filmId, tearsLevel) => {
+  const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-tears-level`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tearsLevel }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Erreur lors de la mise à jour des larmes');
+  }
+
+  return response.json(); // renvoie { message, film }
+};
