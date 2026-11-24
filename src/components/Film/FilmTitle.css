@@ -1,0 +1,71 @@
+/* Titre renommable par appui prolongé */
+.film-title-text {
+  /* Empêche la sélection de texte et le menu natif iOS pendant l'appui */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* Retour visuel pendant l'appui : le titre se "tasse" jusqu'au déclenchement */
+.film-title-text.is-pressing {
+  transform: scale(0.96);
+  opacity: 0.6;
+}
+
+.film-title-edit {
+  width: 100%;
+  margin: 0.67em 0; /* même marge verticale qu'un h1 */
+}
+
+.film-title-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--color-text);
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--color-accent);
+  border-radius: 0;
+  padding: 0 0 0.2rem;
+  outline: none;
+}
+
+.film-title-input:disabled {
+  opacity: 0.5;
+}
+
+.film-title-edit-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+}
+
+.film-title-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.film-title-btn-save {
+  background: var(--color-text);
+  color: var(--color-light);
+}
+
+.film-title-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

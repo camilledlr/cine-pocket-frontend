@@ -8,6 +8,7 @@ import Tag from "../Common/Tag";
 import SkeletonText from "../Common/SkeletonText";
 import FilmRating from "../Film/FilmRating";
 import FilmLiked from "../Film/FilmLiked";
+import FilmTitle from "../Film/FilmTitle";
 import "../../styles/FilmPage.css";
 import { FiPlus } from "react-icons/fi";
 import { FaPen } from "react-icons/fa";
@@ -54,7 +55,7 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
       </div>
       <div className="film-title">
       {filmInfos ? (
-        <h1>{filmInfos.title}</h1>
+        <FilmTitle film={filmInfos} onFilmUpdated={onFilmUpdated} />
       ) : (
         <SkeletonText width="60%" height="1.8rem" />
       )}

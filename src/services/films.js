@@ -237,3 +237,20 @@ export const deleteFilm = async (slug) => {
 
   return response.json(); // renvoie { message, slug, listsUpdated }
 };
+
+// PUT /api/films/:id/update-title
+// Renomme le film ; le back régénère le slug (409 si un autre film porte déjà ce titre)
+export const updateFilmTitle = async (filmId, newTitle) => {
+  const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-title`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ newTitle }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Erreur lors du renommage du film');
+  }
+
+  return response.json(); // renvoie { message, oldSlug, film }
+};
