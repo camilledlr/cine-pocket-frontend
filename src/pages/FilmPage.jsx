@@ -64,7 +64,7 @@ useEffect(() => {
           <p className="film-long-review">{film.longReview}</p>
         )}
       
-      <FilmInfos title={title} filmId={film._id}  infos={film} />
+      <FilmInfos title={film.title} filmId={film._id} infos={film} />
       </div>
       </div>
 

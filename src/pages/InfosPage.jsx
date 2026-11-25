@@ -5,6 +5,8 @@ import { updateFilmInfos, getFilmById } from "../services/films";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import Form from "../components/Common/Form";
+import TagInput from "../components/Common/TagInput";
+import { useFilterOptions } from "../hooks/useFilterOptions";
 
 const InfosPage = () => {
   const location = useLocation();
@@ -14,6 +16,10 @@ const InfosPage = () => {
   const [director, setDirector] = useState(null);
   const [origin, setOrigin] = useState(null);
   const [actors, setActors] = useState(null);
+  const [tags, setTags] = useState([]);
+  // Tags déjà utilisés sur d'autres films, proposés en suggestion
+  // Valeurs déjà saisies sur d'autres films : autocomplétion et suggestions de tags
+  const { values: known } = useFilterOptions();
 
   useEffect(() => {
   const fetchFilm = async () => {
@@ -22,6 +28,7 @@ const InfosPage = () => {
       setDirector(fetchedFilm.director || null);
       setOrigin(fetchedFilm.origin || null);
       setActors((fetchedFilm.actors || []).join(", "));
+      setTags(fetchedFilm.tags || []);
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +51,7 @@ const InfosPage = () => {
         director: data.director,
         actors: parseCommaSeparated(data.actors),
         origin: data.origin,
+        tags,
       });
       if (result && result.message) {
         setTimeout(() => navigate(-1), 500); // ← retour en arrière après 500ms
@@ -76,6 +84,7 @@ const InfosPage = () => {
             inputId="director"
             placeholder="un réal visionnaire ou pas..."
             onChange={(val) => setDirector(val)}
+            suggestions={known.directors}
           />
           <Input
             value={actors}
@@ -83,6 +92,8 @@ const InfosPage = () => {
             inputId="actors"
             placeholder="des acteurs marquants..."
             onChange={(val) => setActors(val)}
+            suggestions={known.actors}
+            multiple
           />
           <Input
             value={origin}
@@ -90,6 +101,14 @@ const InfosPage = () => {
             inputId="origin"
             placeholder="un pays de cinéma..."
             onChange={(val) => setOrigin(val)}
+            suggestions={known.origins}
+          />
+          <TagInput
+            label="tags"
+            value={tags}
+            onChange={setTags}
+            suggestions={known.tags}
+            placeholder="feel good, à voir à deux…"
           />
         </Form>
       </Modale>

@@ -51,3 +51,13 @@
   min-height: calc(100vh - 2rem);  /* navigateurs anciens */
   min-height: calc(100lvh - 2rem); /* hauteur max de l'écran (barres du navigateur masquées) */
 }
+
+/* Petit titre des sections de la page film (« Dispo sur », « Infos ») */
+.film-section-title {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}

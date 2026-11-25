@@ -149,14 +149,14 @@ export const addReco = async (filmId, text) => {
   }
 };
 
-export const updateFilmInfos = async (filmId, { director, actors, origin }) => {
+export const updateFilmInfos = async (filmId, { director, actors, origin, tags }) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-infos`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ director, actors, origin }),
+      body: JSON.stringify({ director, actors, origin, tags }),
     });
 
     if (!response.ok) {

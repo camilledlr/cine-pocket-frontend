@@ -1,0 +1,88 @@
+/* Saisie de tags : même alignement que les champs à label de la page Infos */
+.tag-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+/* Les tags et le champ de saisie partagent la même zone, qui passe à la ligne */
+.tag-input-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e5ddcd; /* même séparateur que les listes */
+  cursor: text;
+}
+
+.tag-input-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.85rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-bg);
+  background-color: var(--color-text);
+  border-radius: 2rem;
+}
+
+.tag-input-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  font-size: 0.85rem;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tag-input-field {
+  flex: 1;
+  min-width: 8rem;
+  padding: 0.35rem 0;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.tag-input-field::placeholder {
+  color: #cfcbbf; /* même gris que les autres champs */
+}
+
+/* Suggestions : tags déjà utilisés ailleurs */
+.tag-input-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.tag-input-suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.85rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-text);
+  border-radius: 2rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tag-input-suggestion.is-new {
+  border-style: dashed;
+}

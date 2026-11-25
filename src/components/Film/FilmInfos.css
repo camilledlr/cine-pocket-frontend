@@ -1,29 +1,76 @@
+/* Section « Infos » de la page film */
 .film-infos {
-  }
-  
-  .infos-title {
-    font-family: var(--font-display);
-    margin-bottom: 0.5rem;
-  }
-  
-  .infos-director,
-  .infos-actors {
-    font-family: var(--font-text);
-    font-size: 1rem;
-    font-weight: 600;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 0 1rem;
+}
 
-  .infos-no-info{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-  }
+/* Lignes « par … / avec … / de … » (affichage d'origine) */
+.infos-section {
+  align-self: stretch;
+}
 
-  
-  .no-info-section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content : space-around;
-  }
- 
+.infos-director,
+.infos-actors {
+  font-family: var(--font-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Tags personnalisés : petites pastilles sous les infos */
+.film-infos-tags {
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.film-infos-tag {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  border-radius: 2rem;
+}
+
+/* « Modifier » : crayon + texte, centré sous les infos */
+.film-infos-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: none;
+  border: 1px solid var(--color-text);
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.film-infos-edit svg {
+  font-size: 0.75rem;
+}
+
+/* Aucune info : invitation à en ajouter (même style que « Ajouter une dispo ») */
+.film-infos-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: none;
+  border: 1.5px dashed var(--color-text);
+  border-radius: 2rem;
+  opacity: 0.7;
+  cursor: pointer;
+}
