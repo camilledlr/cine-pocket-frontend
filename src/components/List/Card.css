@@ -1,33 +1,161 @@
-.card-container{
-    flex: 0 0 auto;       /* empêcher la réduction */
-    background-color: white;
-    border-radius: 15px;
-    height: 22rem;
-    width: 18rem;
-    box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-}
-.card-image-container{
-    background-color: var(--color-accent);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-.card-image{
-   height: 90%;
-    width: 90%;
-    object-fit: cover;   /* ← le bon choix dans 99% des cas pour des affiches */
+.card-link {
   display: block;
-  
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.card-infos{
-padding: 1rem;
-text-decoration: none;
+/* Format affiche de cinéma (2:3), l'image occupe toute la carte */
+.card-container {
+  position: relative;
+  flex: 0 0 auto; /* pas de réduction dans les rangées horizontales */
+  /* Limité aussi par la hauteur d'écran (hauteur max ≈ 54vh) : sur « Que regarder »,
+     la carte doit tenir avec les deux boutons sous elle, même sur un petit téléphone */
+  width: min(18rem, 75vw, 36vh);
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background-color: var(--color-dark);
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.08),
+    0 12px 28px rgba(15, 23, 42, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
- /* width: 100px;
-  height: auto; */
+
+.card-link:active .card-container {
+  transform: scale(0.98);
+}
+
+.card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Sans affiche : fond jaune de l'app, logo en filigrane */
+.card-no-poster {
+  background: linear-gradient(160deg, var(--color-accent), #e89a1c);
+}
+
+.card-placeholder {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 45%;
+  transform: translate(-50%, -50%);
+  opacity: 0.35;
+}
+
+/* Badge hype en haut à droite */
+.card-hype {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  background: rgba(15, 23, 42, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: 50%;
+}
+
+/* Infos posées en bas, sur un dégradé sombre pour rester lisibles sur toute affiche */
+.card-infos {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 3.5rem 1rem 1rem;
+  color: var(--color-light);
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(15, 23, 42, 0.7) 55%,
+    rgba(15, 23, 42, 0) 100%
+  );
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.15;
+  /* 2 lignes max, puis « … » */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.2rem;
+}
+
+.card-platform {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border-radius: 2rem;
+}
+
+/* Sans affiche, le dégradé sombre n'est pas nécessaire : texte bleu foncé */
+.card-no-poster .card-infos {
+  color: var(--color-text);
+  background: none;
+}
+
+/* ---- Variante compacte (rangées horizontales, ex. « Allons au ciné ») ---- */
+.card-container.card-compact {
+  width: 9.5rem;
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.08),
+    0 6px 14px rgba(15, 23, 42, 0.14);
+}
+
+.card-compact .card-infos {
+  gap: 0.15rem;
+  padding: 2.5rem 0.7rem 0.7rem;
+}
+
+.card-compact .card-title {
+  font-size: 0.95rem;
+}
+
+.card-compact .card-meta {
+  font-size: 0.7rem;
+}
+
+.card-compact .card-hype {
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-size: 0.95rem;
+}
