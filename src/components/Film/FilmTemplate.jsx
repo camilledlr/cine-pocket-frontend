@@ -10,6 +10,7 @@ import FilmRating from "../Film/FilmRating";
 import FilmTearsBadge from "../Film/FilmTearsBadge";
 import FilmLiked from "../Film/FilmLiked";
 import FilmTitle from "../Film/FilmTitle";
+import FilmBackdrop from "../Film/FilmBackdrop";
 import "../../styles/FilmPage.css";
 import { FiPlus } from "react-icons/fi";
 import { FaPen } from "react-icons/fa";
@@ -40,7 +41,8 @@ const FilmTemplate = ({ filmInfos, onFilmUpdated }) => {
     }
   };
   return (
-    <div>
+    <div className="film-template">
+      <FilmBackdrop posterPath={filmInfos.posterPath} />
       <div className="film-header">
         <BackButton />
         <div className="film-eval">

@@ -1,0 +1,61 @@
+/* Vignette de l'affiche, centrée sous le header de la page film */
+.film-poster {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.25rem;
+  isolation: isolate;
+}
+
+.film-poster-button {
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0.9rem;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.film-poster-thumb {
+  display: block;
+  width: 8.5rem;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 0.9rem;
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.1),
+    0 14px 30px rgba(15, 23, 42, 0.25);
+}
+
+/* ---- Aperçu plein écran ---- */
+.film-poster-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200; /* au-dessus de la navbar et des boutons fixes, sous les toasts */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.88);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  cursor: zoom-out;
+}
+
+.film-poster-full {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  border-radius: 1rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.film-poster-hint {
+  font-size: 0.8rem;
+  color: var(--color-light);
+  opacity: 0.6;
+}
