@@ -1,0 +1,45 @@
+/* Liste compacte : mêmes typos que les listes principales (ListPage.css), en plus serré */
+.simple-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.simple-list-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.simple-list-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* permet l'ellipse sur les textes longs */
+  flex: 1;
+}
+
+.simple-list-title,
+.simple-list-subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.simple-list-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.simple-list-subtitle {
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.simple-list-empty {
+  padding: 0 1rem;
+}

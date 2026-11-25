@@ -1,0 +1,28 @@
+.cinema-section {
+  padding: 2rem 0 0;
+}
+
+.cinema-section h3 {
+  padding: 0 1rem;
+}
+
+/* Rangée horizontale de cartes, défilement au doigt avec arrêt sur chaque carte */
+.cinema-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 1rem 1.5rem; /* bas : laisse respirer l'ombre des cartes */
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.cinema-row::-webkit-scrollbar {
+  display: none;
+}
+
+.cinema-row > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}

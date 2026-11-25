@@ -1,0 +1,6 @@
+/* Bouton « On regarde quoi ? » : centré, avec de l'air autour */
+.home-cta {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0.5rem;
+}

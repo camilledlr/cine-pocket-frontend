@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getToReview } from "../../services/films";
-import Card from "../List/Card";
+import SimpleFilmList from "../List/SimpleFilmList";
+import { lastWatchedDate, timeAgo } from "../../utils/timeAgo";
 import "./ReminderSection.css";
 
 
@@ -31,7 +32,16 @@ function ReminderSection() {
   return (
     <section className="reminder-section">
       <h3>N'oublie pas !</h3>
-      {films.length === 0 ? (
+      <SimpleFilmList
+        films={films}
+        emptyMessage="Aucun film à reviewer pour l’instant 👍"
+        // Sous-titre : depuis quand le film a été vu ("Vu il y a 3 jours", "Vu hier"…)
+        getSubtitle={(film) => {
+          const last = lastWatchedDate(film);
+          return last ? `Vu ${timeAgo(last)}` : null;
+        }}
+      />
+      {/* {films.length === 0 ? (
         <p>Aucun film à reviewer pour l’instant 👍</p>
       ) : (
         <div className="reminder-list">
@@ -39,7 +49,7 @@ function ReminderSection() {
             <Card film={film}/>
           ))}
         </div>
-      )}
+      )} */}
     </section>
   );
 }
