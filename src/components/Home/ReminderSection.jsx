@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getToReview } from "../../services/films";
 import SimpleFilmList from "../List/SimpleFilmList";
+import Loader from "../Common/Loader";
 import { lastWatchedDate, timeAgo } from "../../utils/timeAgo";
 import "./ReminderSection.css";
 
@@ -26,12 +27,14 @@ function ReminderSection() {
     loadFilms();
   }, []);
 
-  if (loading) return <p>Chargement des films à reviewer...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <section className="reminder-section">
       <h3>N'oublie pas !</h3>
+      {loading ? (
+        <Loader inline />
+      ) : (
       <SimpleFilmList
         films={films}
         emptyMessage="Aucun film à reviewer pour l’instant 👍"
@@ -41,6 +44,7 @@ function ReminderSection() {
           return last ? `Vu ${timeAgo(last)}` : null;
         }}
       />
+      )}
       {/* {films.length === 0 ? (
         <p>Aucun film à reviewer pour l’instant 👍</p>
       ) : (

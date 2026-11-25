@@ -8,11 +8,14 @@ import FilmInfos from "../components/Film/FilmInfos";
 import FilmRecommendations from "../components/Film/FilmRecommendations";
 import FilmTemplate from "../components/Film/FilmTemplate";
 import DeleteFilmButton from "../components/Film/DeleteFilmButton";
+import BackButton from "../components/Common/BackButton";
+import Loader from "../components/Common/Loader";
 import "../styles/FilmPage.css";
 
 function FilmPage() {
   const { slug } = useParams();
   const [film, setFilm] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const location = useLocation();
   const title = location.state?.title;
 
@@ -21,10 +24,12 @@ function FilmPage() {
 useEffect(() => {
   const fetchFilm = async () => {
     try {
+      setNotFound(false);
       const fetchedFilm = await getFilmBySlug(slug);
       setFilm(fetchedFilm);
     } catch (err) {
       console.error(err);
+      setNotFound(true);
     }
   };
 
@@ -42,7 +47,25 @@ useEffect(() => {
 >
 
     <div>
-    {!film && <FilmTemplate filmInfos={{title : title, slug}} onFilmUpdated={setFilm}/> }
+    {/* Pas encore chargé : retour + titre (si on le connaît déjà) + loader.
+        Pas de boutons d'action tant que le film (et son id) n'est pas arrivé */}
+    {!film && (
+      <div className="film-loading">
+        <div className="film-header">
+          <BackButton />
+        </div>
+        {title && (
+          <div className="film-title">
+            <h1>{title}</h1>
+          </div>
+        )}
+        {notFound ? (
+          <p className="film-loading-error">Impossible de charger ce film.</p>
+        ) : (
+          <Loader inline message="Chargement du film…" />
+        )}
+      </div>
+    )}
     {film && (
       <div>
       {/* Occupe au moins toute la hauteur de l'écran : le bouton de suppression

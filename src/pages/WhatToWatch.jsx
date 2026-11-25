@@ -7,6 +7,7 @@ import { useCachedData } from "../hooks/useCachedData";
 import { useFilterOptions } from "../hooks/useFilterOptions";
 import { useWhatToWatchFilters } from "../hooks/useWhatToWatchFilters";
 import Card from "../components/List/Card";
+import Loader from "../components/Common/Loader";
 import Button from "../components/Common/Button";
 import "../styles/WhatToWatch.css";
 
@@ -136,7 +137,7 @@ const ResultView = ({ film, onRetry, onReset }) => (
 
 const WhatToWatch = () => {
   const navigate = useNavigate();
-  const { data: watchlist, refresh } = useCachedData("cinePocket_watchlist", getWatchlist, { films: [] });
+  const { data: watchlist, refresh, initialLoading } = useCachedData("cinePocket_watchlist", getWatchlist, { films: [] });
   const { options } = useFilterOptions();
   const { filteredFilms, filterState, filterHandlers } = useWhatToWatchFilters(watchlist.films);
   const [view, setView] = useState("filters");
@@ -170,7 +171,8 @@ const WhatToWatch = () => {
         <IoClose />
       </button>
       <h3 className="page-title">On regarde quoi ?</h3>
-      {view === "filters" && (
+      {initialLoading && <Loader inline message="Chargement de la watchlist…" />}
+      {!initialLoading && view === "filters" && (
         <FiltersView
           options={options}
           filterState={filterState}

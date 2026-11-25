@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import {useLoading } from './context/LoadingContext';
 import Loader from './components/Common/Loader';
+import ServerWakeBanner from './components/Common/ServerWakeBanner';
 import Home from './pages/Home';
 import Watchlist from './pages/Watchlist';
 import Seenlist from './pages/Seenlist';
@@ -33,6 +34,8 @@ function App() {
         <Route path="/films/review/:filmId" element={<ReviewPage />} />
       </Routes>
       </AnimatePresence>
+      {/* Prévient quand le back met du temps à répondre (sortie de veille) */}
+      <ServerWakeBanner />
     </Router>
     // </MobileOnly>
   );

@@ -5,6 +5,7 @@ import { updateFilmInfos, getFilmById } from "../services/films";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Input from "../components/Common/Input";
 import Form from "../components/Common/Form";
+import Loader from "../components/Common/Loader";
 import TagInput from "../components/Common/TagInput";
 import { useFilterOptions } from "../hooks/useFilterOptions";
 
@@ -17,6 +18,7 @@ const InfosPage = () => {
   const [origin, setOrigin] = useState(null);
   const [actors, setActors] = useState(null);
   const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(true);
   // Tags déjà utilisés sur d'autres films, proposés en suggestion
   // Valeurs déjà saisies sur d'autres films : autocomplétion et suggestions de tags
   const { values: known } = useFilterOptions();
@@ -31,6 +33,8 @@ const InfosPage = () => {
       setTags(fetchedFilm.tags || []);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,6 +81,11 @@ const InfosPage = () => {
     >
     <div>
       <Modale modaleTitle={title}>
+        {/* Pas de formulaire tant que les infos ne sont pas chargées :
+            on éviterait d'enregistrer des champs vides par-dessus les vraies infos */}
+        {loading ? (
+          <Loader inline message="Chargement des infos…" />
+        ) : (
         <Form onSubmit={handleUpdate}>
           <Input
             value={director}
@@ -111,6 +120,7 @@ const InfosPage = () => {
             placeholder="feel good, à voir à deux…"
           />
         </Form>
+        )}
       </Modale>
     </div>
     </motion.div>

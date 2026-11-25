@@ -22,3 +22,36 @@
     transform: rotate(360deg);
   }
 }
+
+/* ---- Variante intégrée à la page ---- */
+.loader-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 3rem 1rem;
+  /* Apparition légèrement retardée : pas de clignotement si les données arrivent vite */
+  animation: loader-fade-in 0.3s ease 0.2s both;
+}
+
+.reel-icon-inline {
+  font-size: 2.5rem;
+}
+
+.loader-message {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+@keyframes loader-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-icon {
+    animation-duration: 3s;
+  }
+}

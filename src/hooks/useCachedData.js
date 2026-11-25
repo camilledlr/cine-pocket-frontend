@@ -32,6 +32,10 @@ const writeStoredValue = (storageKey, value) => {
 
 export const useCachedData = (storageKey, fetcher, initialValue) => {
   const [data, setData] = useState(() => parseStoredValue(storageKey, initialValue));
+  // Rien en cache au départ : la page n'a encore aucune donnée à montrer
+  const [hasData, setHasData] = useState(
+    () => typeof window !== 'undefined' && localStorage.getItem(storageKey) !== null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -40,6 +44,7 @@ export const useCachedData = (storageKey, fetcher, initialValue) => {
       setLoading(true);
       const freshData = await fetcher();
       setData(freshData);
+      setHasData(true);
       writeStoredValue(storageKey, freshData);
       setError(null);
       return freshData;
@@ -56,5 +61,8 @@ export const useCachedData = (storageKey, fetcher, initialValue) => {
     refresh();
   }, [refresh]);
 
-  return { data, setData, loading, error, refresh };
+  // initialLoading : premier chargement sans cache → afficher un loader plutôt qu'une liste vide
+  const initialLoading = loading && !hasData;
+
+  return { data, setData, loading, initialLoading, error, refresh };
 };

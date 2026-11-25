@@ -7,6 +7,7 @@ import TextArea from "../components/Common/TextArea";
 import FilmRating from "../components/Film/FilmRating";
 import FilmTears from "../components/Film/FilmTears";
 import Form from "../components/Common/Form";
+import Loader from "../components/Common/Loader";
 
 const ReviewPage = () => {
   const location = useLocation();
@@ -52,7 +53,13 @@ const ReviewPage = () => {
       };
     }
   };
-  if (loading) return <p>Chargement...</p>;
+  // En-tête (titre + ✕) gardé pendant le chargement : on peut toujours fermer
+  if (loading)
+    return (
+      <Modale modaleTitle={title}>
+        <Loader inline message="Chargement de la review…" />
+      </Modale>
+    );
   return (
     <div>
       <Modale modaleTitle={title}>

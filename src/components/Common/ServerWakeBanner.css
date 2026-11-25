@@ -1,0 +1,33 @@
+/* Bandeau flottant en bas de l'écran, au-dessus des boutons fixes */
+.server-wake-banner {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 3000; /* au-dessus des panneaux et boutons fixes, sous les toasts (9999) */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  padding: 0.75rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--color-bg);
+  background: var(--color-text);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+  pointer-events: none; /* n'empêche pas d'utiliser la page */
+}
+
+.server-wake-icon {
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  animation: spin 1.5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .server-wake-icon {
+    animation: none;
+  }
+}

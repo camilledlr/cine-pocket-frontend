@@ -6,9 +6,10 @@ import { useCachedData } from "../hooks/useCachedData";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
+import Loader from "../components/Common/Loader";
 
 function Seenlist() {
-  const { data: list, refresh } = useCachedData(
+  const { data: list, refresh, initialLoading } = useCachedData(
     'cinePocket_seenlist',
     getSeenlist,
     []
@@ -100,13 +101,17 @@ function Seenlist() {
           }}
           selectedSort={filters.sortBy}
         />
-        <FilmList
-          showFilters={setShowFilters}
-          title="Films vus"
-          listType="seenlist"
-          filters={filters} 
-          list={sortedFilms}
-        />
+        {initialLoading ? (
+          <Loader inline message="Chargement des films vus…" />
+        ) : (
+          <FilmList
+            showFilters={setShowFilters}
+            title="Films vus"
+            listType="seenlist"
+            filters={filters}
+            list={sortedFilms}
+          />
+        )}
       </div>
     </motion.div>
   );

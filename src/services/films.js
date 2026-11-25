@@ -1,14 +1,14 @@
-import API_BASE_URL from '../api';
+import API_BASE_URL, { apiFetch } from '../api';
 
 // GET /api/films
 export const getFilms = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/films`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films`);
   return res.json();
 };
 
 // POST /api/films
 export const addFilm = async (filmData) => {
-  const res = await fetch(`${API_BASE_URL}/api/films`, {
+  const res = await apiFetch(`${API_BASE_URL}/api/films`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(filmData),
@@ -18,25 +18,25 @@ export const addFilm = async (filmData) => {
 
 // GET/api/films/all-titles'
 export const getAllFilms = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/films/all-titles`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/all-titles`);
   if (!res.ok) throw new Error('Films non trouvés');
   return res.json();
 };
 // GET/api/films/watched
 export const getWatchedFilms = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/films/watched`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/watched`);
   if (!res.ok) throw new Error('Films vus non trouvés');
   return res.json();
 };
 // GET/api/films/watched-count/:year
 export const getWatchedCount = async (year) => {
-  const res = await fetch(`${API_BASE_URL}/api/films/watched-count/${year}`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/watched-count/${year}`);
   if (!res.ok) throw new Error('Comptage films vus non trouvé');
   return res.json();
 };
 // GET/api/films/to-review'
 export const getToReview = async () => {
-  const res = await fetch(`${API_BASE_URL}/api/films/to-review`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/to-review`);
   if (!res.ok) throw new Error('Films non trouvés');
   return res.json();
 };
@@ -45,7 +45,7 @@ export const getToReview = async () => {
 
 export const getFiltersData = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/filters-data`);
+    const response = await apiFetch(`${API_BASE_URL}/api/films/filters-data`);
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -61,20 +61,20 @@ export const getFiltersData = async () => {
 };
 // GET/api/films/slug
 export const getFilmBySlug = async (slug) => {
-  const res = await fetch(`${API_BASE_URL}/api/films/slug/${slug}`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/slug/${slug}`);
   if (!res.ok) throw new Error('Film non trouvé');
   return res.json();
 };
 // GET/api/films/:id
 export const getFilmById = async (id) => {
-  const res = await fetch(`${API_BASE_URL}/api/films/id/${id}`);
+  const res = await apiFetch(`${API_BASE_URL}/api/films/id/${id}`);
   if (!res.ok) throw new Error('Film non trouvé');
   return res.json();
 };
 
 // PUT /api/films/add-to-watchlist
 export const addFilmToWatchlist = async (filmId, slug, title) => {
-  const res = await fetch(`${API_BASE_URL}/api/films/add-to-watchlist`, {
+  const res = await apiFetch(`${API_BASE_URL}/api/films/add-to-watchlist`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ filmId, slug, title }),
@@ -85,7 +85,7 @@ export const addFilmToWatchlist = async (filmId, slug, title) => {
 // PUT /api/films/toggle-hype
 export const toggleFilmHype = async (filmId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/toggle-hype/${filmId}`, {
+    const response = await apiFetch(`${API_BASE_URL}/api/films/toggle-hype/${filmId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ export const toggleFilmHype = async (filmId) => {
 // PUT /api/films/toggle-like
 export const toggleFilmLike = async (filmId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/toggle-like/${filmId}`, {
+    const response = await apiFetch(`${API_BASE_URL}/api/films/toggle-like/${filmId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ export const toggleFilmLike = async (filmId) => {
 // put /films/:filmId/add-reco
 export const addReco = async (filmId, text) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/add-reco`, {
+    const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/add-reco`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export const addReco = async (filmId, text) => {
 
 export const updateFilmInfos = async (filmId, { director, actors, origin, tags }) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-infos`, {
+    const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/update-infos`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export const updateFilmInfos = async (filmId, { director, actors, origin, tags }
 };
 export const updateFilmPlatforms = async (filmId, platforms) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-platforms`, {
+    const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/update-platforms`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ export const updateFilmPlatforms = async (filmId, platforms) => {
 };
 
 export const markFilmAsSeen = async ({filmId, slug, title}) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/mark-as-watched`, {
+  const response = await apiFetch(`${API_BASE_URL}/api/films/mark-as-watched`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
      body: JSON.stringify({ filmId, slug, title }),
@@ -209,7 +209,7 @@ export const markFilmAsSeen = async ({filmId, slug, title}) => {
 
 
 export const updateFilmReview = async (filmId, { shortReview, longReview, rating }) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-review`, {
+  const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/update-review`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ shortReview, longReview, rating }),
@@ -226,7 +226,7 @@ export const updateFilmReview = async (filmId, { shortReview, longReview, rating
 // DELETE /api/films/slug/:slug
 // Supprime définitivement le film : retiré de toutes les listes puis de la base
 export const deleteFilm = async (slug) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/slug/${encodeURIComponent(slug)}`, {
+  const response = await apiFetch(`${API_BASE_URL}/api/films/slug/${encodeURIComponent(slug)}`, {
     method: 'DELETE',
   });
 
@@ -241,7 +241,7 @@ export const deleteFilm = async (slug) => {
 // PUT /api/films/:id/update-title
 // Renomme le film ; le back régénère le slug (409 si un autre film porte déjà ce titre)
 export const updateFilmTitle = async (filmId, newTitle) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-title`, {
+  const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/update-title`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ newTitle }),
@@ -258,7 +258,7 @@ export const updateFilmTitle = async (filmId, newTitle) => {
 // PUT /api/films/:id/update-tears-level
 // tearsLevel : entier de 1 à 5, ou null pour retirer l'alarme
 export const updateFilmTearsLevel = async (filmId, tearsLevel) => {
-  const response = await fetch(`${API_BASE_URL}/api/films/${filmId}/update-tears-level`, {
+  const response = await apiFetch(`${API_BASE_URL}/api/films/${filmId}/update-tears-level`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ tearsLevel }),

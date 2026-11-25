@@ -4,6 +4,7 @@ import { updateFilmPlatforms, getFilmById  } from "../services/films";
 import { useParams, useLocation, useNavigate} from "react-router-dom";
 import Form from "../components/Common/Form";
 import Checkbox from "../components/Common/Checkbox";
+import Loader from "../components/Common/Loader";
 import "../styles/PlatformsPage.css"; // Import CSS file for styling
 import { ALL_PLATFORMS } from "../constants/platforms";
 
@@ -12,6 +13,7 @@ const PlatformPage = () => {
   const title = location.state?.title;
   const platformsList = ALL_PLATFORMS;
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { filmId } = useParams();
 
@@ -20,7 +22,8 @@ const PlatformPage = () => {
                   .then((fetchedFilm) => {
                   setSelectedPlatforms(fetchedFilm.platform|| []);
                 })
-                  .catch((err) => console.error(err));
+                  .catch((err) => console.error(err))
+                  .finally(() => setLoading(false));
               }, [filmId]);
 
   const handleCheckboxChange = (platform) => {
@@ -53,6 +56,9 @@ const PlatformPage = () => {
     <div>
       <Modale modaleTitle={title}></Modale>
       <div className="dispo-title">Dispo sur ...</div>
+      {loading ? (
+        <Loader inline />
+      ) : (
       <Form onSubmit={handleAddPlatform}>
         {platformsList.map((platform) => (
           <Checkbox
@@ -64,6 +70,7 @@ const PlatformPage = () => {
           />
         ))}
       </Form>
+      )}
     </div>
   );
 };

@@ -7,9 +7,10 @@ import "../styles/ListPage.css";
 import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
+import Loader from "../components/Common/Loader";
 
 function Watchlist() {
-  const { data: watchlist, refresh, error } = useCachedData(
+  const { data: watchlist, refresh, error, initialLoading } = useCachedData(
     'cinePocket_watchlist',
     getWatchlist,
     { films: [] }
@@ -86,12 +87,16 @@ function Watchlist() {
         }}
         selectedSort={filters.sortBy}
       />
-      <FilmList
-        showFilters={setShowFilters}
-        title="Watchlist"
-        list={sortedFilms}
-        listType="watchlist"
-      />
+      {initialLoading ? (
+        <Loader inline message="Chargement de la watchlist…" />
+      ) : (
+        <FilmList
+          showFilters={setShowFilters}
+          title="Watchlist"
+          list={sortedFilms}
+          listType="watchlist"
+        />
+      )}
     </div>
     </motion.div>
   );
