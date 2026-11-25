@@ -1,0 +1,118 @@
+/* Fond assombri derrière le panneau (même voile que ConfirmModal) */
+.platforms-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100; /* au-dessus des boutons fixes (1000), sous les toasts (9999) */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Le panneau, collé en bas de l'écran */
+.platforms-sheet {
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 0.6rem 1rem calc(1.5rem + env(safe-area-inset-bottom));
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border-radius: 1.25rem 1.25rem 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  touch-action: none; /* le glisser vers le bas est géré par le panneau */
+}
+
+/* Poignée : indique qu'on peut glisser vers le bas pour fermer */
+.platforms-sheet-handle {
+  width: 2.5rem;
+  height: 0.3rem;
+  margin: 0 auto 1rem;
+  border-radius: 999px;
+  background: var(--color-text);
+  opacity: 0.25;
+}
+
+.platforms-sheet-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.platforms-sheet-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.platforms-sheet-film {
+  font-size: 0.95rem;
+  font-weight: 300;
+}
+
+.platforms-sheet-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Pastille : même forme que les Tag (bordure, coins arrondis) */
+.platform-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid var(--color-text);
+  border-radius: 2rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.platform-chip:active {
+  transform: scale(0.95);
+}
+
+/* Sélectionnée : remplie (comme .tag-primary-fill) */
+.platform-chip.is-selected {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.platform-chip-check {
+  font-size: 0.9rem;
+}
+
+/* « Indisponible » : en pointillés pour la distinguer des plateformes */
+.platform-chip-none {
+  border-style: dashed;
+}
+
+.platforms-sheet-separator {
+  margin: 1rem 0 0.6rem;
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.platforms-sheet-done {
+  display: block;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.9rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-light);
+  background: var(--color-text);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}

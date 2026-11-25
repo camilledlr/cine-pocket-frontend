@@ -5,24 +5,12 @@ import { useParams, useLocation, useNavigate} from "react-router-dom";
 import Form from "../components/Common/Form";
 import Checkbox from "../components/Common/Checkbox";
 import "../styles/PlatformsPage.css"; // Import CSS file for styling
+import { ALL_PLATFORMS } from "../constants/platforms";
 
 const PlatformPage = () => {
   const location = useLocation();
   const title = location.state?.title;
-  const platformsList = [
-    { id: "prime_video", label: "Prime Video" },
-    { id: "netflix", label: "Netflix" },
-    { id: "disney_plus", label: "Disney +" },
-    { id: "arte", label: "Arte" },
-    { id: "universciné", label: "Universciné" },
-    { id: "france_tv", label: "France TV" },
-    { id: "hbo", label: "HBO max" },
-    { id: "cine", label: "Au ciné" },
-    { id: "m6", label: "M6 +" },
-    { id: "tf1", label: "TF1 +" },
-    { id: "vod", label: "VOD" },
-    { id: "no_dispo", label: "Indisponible" },
-  ];
+  const platformsList = ALL_PLATFORMS;
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const navigate = useNavigate();
   const { filmId } = useParams();

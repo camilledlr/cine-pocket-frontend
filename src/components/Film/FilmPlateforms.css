@@ -1,14 +1,84 @@
-.list-plateforms {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+/* Section « Dispo sur » de la page film */
+.film-dispo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1rem;
 }
 
-.list-section {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    padding:2rem 1rem;
+/* Zone cliquable qui ouvre le panneau d'édition */
+.film-dispo-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.25rem 0;
+  font: inherit;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.1s ease;
+}
+
+.film-dispo-body:active {
+  transform: scale(0.98);
+}
+
+/* Pastilles des plateformes : passent à la ligne si besoin */
+.film-dispo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.film-dispo-chip {
+  padding: 0.55rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-bg);
+  background-color: var(--color-text);
+  border-radius: 2rem;
+}
+
+/* Aucune dispo renseignée : invitation à en ajouter */
+.film-dispo-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: 1.5px dashed var(--color-text);
+  border-radius: 2rem;
+  opacity: 0.7;
+}
+
+/* Marqué « Indisponible » */
+.film-dispo-none {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 1rem;
+  font-style: italic;
+  border: 1px dashed var(--color-text);
+  border-radius: 2rem;
+  opacity: 0.7;
+}
+
+/* Indice discret pour modifier : petit crayon estompé au bout des pastilles */
+.film-dispo-chips {
+  align-items: center;
+}
+
+.film-dispo-edit {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.2rem;
+  font-size: 0.7rem;
+  opacity: 0.35;
 }
