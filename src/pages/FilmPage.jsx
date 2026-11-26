@@ -15,7 +15,8 @@ import "../styles/FilmPage.css";
 function FilmPage() {
   const { slug } = useParams();
   const [film, setFilm] = useState(null);
-  const [notFound, setNotFound] = useState(false);
+  // "loading" | "ready" | "new" (film pas encore dans la base) | "error"
+  const [loadState, setLoadState] = useState("loading");
   const location = useLocation();
   const title = location.state?.title;
 
@@ -24,12 +25,19 @@ function FilmPage() {
 useEffect(() => {
   const fetchFilm = async () => {
     try {
-      setNotFound(false);
+      setLoadState("loading");
       const fetchedFilm = await getFilmBySlug(slug);
       setFilm(fetchedFilm);
+      setLoadState("ready");
     } catch (err) {
-      console.error(err);
-      setNotFound(true);
+      if (err.status === 404) {
+        // Film cherché qui n'existe pas encore : on propose de l'ajouter
+        setFilm(null);
+        setLoadState("new");
+      } else {
+        console.error(err);
+        setLoadState("error");
+      }
     }
   };
 
@@ -47,9 +55,15 @@ useEffect(() => {
 >
 
     <div>
-    {/* Pas encore chargé : retour + titre (si on le connaît déjà) + loader.
-        Pas de boutons d'action tant que le film (et son id) n'est pas arrivé */}
-    {!film && (
+    {/* Film pas encore dans la base (arrivé depuis la recherche) : modèle avec le titre
+        tapé et les boutons « Ajouter à la Watchlist » / « Marquer comme Vu », qui le créent */}
+    {!film && loadState === "new" && (
+      <FilmTemplate filmInfos={{ title, slug }} onFilmUpdated={setFilm} />
+    )}
+
+    {/* Chargement en cours ou erreur : retour + titre (si on le connaît) + loader / message.
+        Pas de boutons d'action tant qu'on ne sait pas si le film existe */}
+    {!film && loadState !== "new" && (
       <div className="film-loading">
         <div className="film-header">
           <BackButton />
@@ -59,7 +73,7 @@ useEffect(() => {
             <h1>{title}</h1>
           </div>
         )}
-        {notFound ? (
+        {loadState === "error" ? (
           <p className="film-loading-error">Impossible de charger ce film.</p>
         ) : (
           <Loader inline message="Chargement du film…" />

@@ -62,7 +62,12 @@ export const getFiltersData = async () => {
 // GET/api/films/slug
 export const getFilmBySlug = async (slug) => {
   const res = await apiFetch(`${API_BASE_URL}/api/films/slug/${slug}`);
-  if (!res.ok) throw new Error('Film non trouvé');
+  if (!res.ok) {
+    const error = new Error(res.status === 404 ? 'Film non trouvé' : 'Erreur lors du chargement du film');
+    // 404 = film pas encore dans la base (cas normal après une recherche) ≠ vraie erreur
+    error.status = res.status;
+    throw error;
+  }
   return res.json();
 };
 // GET/api/films/:id
