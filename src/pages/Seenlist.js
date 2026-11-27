@@ -7,6 +7,7 @@ import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
 import Loader from "../components/Common/Loader";
+import { filterFilms, sortFilms } from "../utils/listFilters";
 
 function Seenlist() {
   const { data: list, refresh, initialLoading } = useCachedData(
@@ -19,35 +20,7 @@ function Seenlist() {
     sortBy: "date",
   });
 
-  const sortedFilms = [...(list.films|| [])]
-    .filter((film) => {
-      if (filters.onlyLiked && !film.liked) return false;
-      if (filters.watchYear && !film.watchedDates.some(date => new Date(date).getFullYear() === Number(filters.watchYear))) return false;
-      if (
-        filters.director?.length &&
-        !filters.director.some(
-          (dir) => film.director?.toLowerCase() === dir.toLowerCase()
-        )
-      )
-        return false;
-      if (
-        filters.origin?.length &&
-        !filters.origin.some(
-          (orig) => film.origin?.toLowerCase() === orig.toLowerCase()
-        )
-      )
-        return false;
-      return true;
-    })
-    .sort((a, b) => {
-      if (filters.sortBy === "rating") return b.rating - a.rating;
-      if (filters.sortBy === "date") {
-        const dateA = a.watchedDates?.[a.watchedDates.length - 1] || 0;
-        const dateB = b.watchedDates?.[b.watchedDates.length - 1] || 0;
-        return new Date(dateB) - new Date(dateA);
-      } // plus récent en haut;
-      return 0;
-    });
+  const sortedFilms = sortFilms(filterFilms(list.films, filters), filters.sortBy, "seenlist");
 
   // useEffect(() => {
   //   const fetchSeenlist = async () => {
@@ -99,7 +72,8 @@ function Seenlist() {
             setFiltersFromForm(selectedFilters);
             setShowFilters(false);
           }}
-          selectedSort={filters.sortBy}
+          filters={filters}
+          films={list.films}
         />
         {initialLoading ? (
           <Loader inline message="Chargement des films vus…" />

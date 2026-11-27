@@ -10,20 +10,23 @@ const getFilterArray = (params, name) => params.getAll(name).filter(Boolean);
 const buildFilterOptions = (list) =>
   list.map((item) => ({ value: item, label: item }));
 
+// Filtres à valeurs multiples, stockés en paramètres répétés dans l'URL (?tag=a&tag=b)
+const MULTI_FILTERS = ["director", "origin", "platform", "tag", "actor"];
+
 export default function usePersistentFilters(defaults = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters = useMemo(() => ({
     sortBy: searchParams.get("sortBy") || defaults.sortBy || "date",
-      watchYear: searchParams.get("watchYear") || null,
+    watchYear: searchParams.get("watchYear") || null,
+    rating: searchParams.get("rating") || null, // plage de notes "min-max" (ex. "6-9")
+    tears: searchParams.get("tears") || null, // niveau de larmes minimal
     onlyHyped: searchParams.get("onlyHyped") === "true",
     onlyLiked: searchParams.get("onlyLiked") === "true",
-    director: getFilterArray(searchParams, "director"),
-    origin: getFilterArray(searchParams, "origin"),
-    platform: getFilterArray(searchParams, "platform"),
+    ...Object.fromEntries(MULTI_FILTERS.map((name) => [name, getFilterArray(searchParams, name)])),
   }), [searchParams, defaults.sortBy]);
-  
-// Function to set filters based on form input
+
+  // Function to set filters based on form input
   // This function updates the URL search parameters based on the selected filters
   const setFiltersFromForm = (selectedFilters) => {
     const params = new URLSearchParams();
@@ -32,10 +35,12 @@ export default function usePersistentFilters(defaults = {}) {
     if (selectedFilters.onlyHyped) params.set("onlyHyped", "true");
     if (selectedFilters.onlyLiked) params.set("onlyLiked", "true");
     if (selectedFilters.watchYear) params.set("watchYear", selectedFilters.watchYear);
+    if (selectedFilters.rating) params.set("rating", selectedFilters.rating);
+    if (selectedFilters.tears) params.set("tears", selectedFilters.tears);
 
-    selectedFilters.director.forEach((d) => params.append("director", d));
-    selectedFilters.origin.forEach((o) => params.append("origin", o));
-    selectedFilters.platform.forEach((p) => params.append("platform", p));
+    MULTI_FILTERS.forEach((name) =>
+      (selectedFilters[name] || []).forEach((value) => params.append(name, value))
+    );
 
     setSearchParams(params);
   };

@@ -8,6 +8,7 @@ import FilmList from "../components/List/FilmList";
 import FilterModal from "../components/List/FilterModal";
 import NavBar from "../components/Common/NavBar";
 import Loader from "../components/Common/Loader";
+import { filterFilms, sortFilms } from "../utils/listFilters";
 
 function Watchlist() {
   const { data: watchlist, refresh, error, initialLoading } = useCachedData(
@@ -18,42 +19,7 @@ function Watchlist() {
   const { filters, setFiltersFromForm} =
     usePersistentFilters({ sortBy: "date" });
 
-  // Fonction pour trier et filtrer les films de la watchlist
-  const sortedFilms = (watchlist.films || [])
-    .filter((film) => {
-      if (filters.onlyHyped && !film.hyped) return false;
-      if (
-        filters.director?.length &&
-        !filters.director.some(
-          (dir) => film.director?.toLowerCase() === dir.toLowerCase()
-        )
-      )
-        return false;
-      if (
-        filters.origin?.length &&
-        !filters.origin.some(
-          (orig) => film.origin?.toLowerCase() === orig.toLowerCase()
-        )
-      )
-        return false;
-      if (
-        filters.platform?.length &&
-        !film.platform?.some((p) =>
-          filters.platform.some(
-            (filterPlat) => p.label?.toLowerCase() === filterPlat.toLowerCase()
-          )
-        )
-      )
-        return false;
-      return true;
-    })
-    .sort((a, b) => {
-      if (filters.sortBy === "hyped")
-        return (b.hyped === true) - (a.hyped === true);
-      if (filters.sortBy === "date")
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      return 0;
-    });
+  const sortedFilms = sortFilms(filterFilms(watchlist.films, filters), filters.sortBy, "watchlist");
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -85,7 +51,8 @@ function Watchlist() {
           setFiltersFromForm(selectedFilters);
           setShowFilters(false);
         }}
-        selectedSort={filters.sortBy}
+        filters={filters}
+        films={watchlist.films}
       />
       {initialLoading ? (
         <Loader inline message="Chargement de la watchlist…" />
@@ -95,6 +62,7 @@ function Watchlist() {
           title="Watchlist"
           list={sortedFilms}
           listType="watchlist"
+          filters={filters}
         />
       )}
     </div>

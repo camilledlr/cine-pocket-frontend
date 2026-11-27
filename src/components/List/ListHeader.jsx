@@ -1,7 +1,22 @@
 import React from "react";
-import Tag from "../Common/Tag";  
+import Tag from "../Common/Tag";
 import "./ListHeader.css";
 import { LuSettings2 } from "react-icons/lu";
+import { TEARS_OPTIONS, labelFor, ratingRangeLabel } from "../../utils/listFilters";
+
+// Pastilles des filtres actifs, affichées à côté du bouton de filtres
+const activeFilterLabels = (filters) => {
+  if (!filters) return [];
+  return [
+    filters.watchYear,
+    filters.rating && ratingRangeLabel(filters.rating),
+    filters.tears && labelFor(TEARS_OPTIONS, filters.tears),
+    ...(filters.tag || []).map((tag) => `#${tag}`),
+    ...(filters.director || []),
+    ...(filters.actor || []),
+    ...(filters.origin || []),
+  ].filter(Boolean);
+};
 
 const ListHeader = ({ title, count, showFilters, filters}) => {
   return (
@@ -12,16 +27,9 @@ const ListHeader = ({ title, count, showFilters, filters}) => {
     </div>
     <div className="header-actions">
     <div>
-    {filters  && filters.watchYear && (
-      <Tag text={filters.watchYear} variant="primary-fill"/>
-  )}
-
-    {filters  && filters.director?.map(dir => (
-    <Tag text={dir} variant="primary-fill"/>
-  ))}
-    {filters  && filters.origin?.map(orig => (
-    <Tag text={orig} variant="primary-fill"/>
-  ))}
+      {activeFilterLabels(filters).map((label) => (
+        <Tag key={label} text={label} variant="primary-fill" />
+      ))}
   </div>
       <LuSettings2 onClick={() => showFilters(true)}/>
     </div>
