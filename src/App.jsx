@@ -12,6 +12,10 @@ import InfosPage from './pages/InfosPage';
 import PlatformsPage from './pages/PlatformsPage';
 import ReviewPage from './pages/ReviewPage';
 import WhatToWatch from './pages/WhatToWatch';
+import RankingCreatePage from './pages/RankingCreatePage';
+import RankingsPage from './pages/RankingsPage';
+import RankingPage from './pages/RankingPage';
+import SeancePage from './pages/SeancePage';
 
 
 
@@ -32,6 +36,10 @@ function App() {
         <Route path="/films/infos/:filmId" element={<InfosPage />} />
         <Route path="/films/platforms/:filmId" element={<PlatformsPage />} />
         <Route path="/films/review/:filmId" element={<ReviewPage />} />
+        <Route path="/tops" element={<RankingsPage />} />
+        <Route path="/tops/nouveau" element={<RankingCreatePage />} />
+        <Route path="/tops/:id" element={<RankingPage />} />
+        <Route path="/seance/:year" element={<SeancePage />} />
       </Routes>
       </AnimatePresence>
       {/* Prévient quand le back met du temps à répondre (sortie de veille) */}
