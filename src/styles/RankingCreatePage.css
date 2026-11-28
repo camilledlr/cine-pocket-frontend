@@ -1,0 +1,9 @@
+/* Pas de marge en bas : la barre d'enregistrement (RankingEditor.css) est collée au bas de l'écran */
+.ranking-page {
+  padding-bottom: 0;
+}
+
+.ranking-empty {
+  text-align: center;
+  opacity: 0.7;
+}

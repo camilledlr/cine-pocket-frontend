@@ -25,3 +25,30 @@
   align-items: center;
   justify-content: space-between;
 }
+.header-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.header-filter-icon {
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+
+/* Lance un classement à partir de la liste filtrée */
+.rank-start-button {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  margin-right: 0.25rem;
+}

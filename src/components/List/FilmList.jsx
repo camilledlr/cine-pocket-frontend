@@ -8,7 +8,7 @@ const FilmList = ({title, list, listType, detailed='false', showFilters, filters
 
   return (
     <>
-    <ListHeader title={title} count={list.length} showFilters={showFilters} filters={filters} />
+    <ListHeader title={title} count={list.length} showFilters={showFilters} filters={filters} listType={listType} />
     <div className="film-list">
       {hasFilms ? (
         list

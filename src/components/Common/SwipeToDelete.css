@@ -1,0 +1,38 @@
+/* Ligne glissable : la zone rouge est derrière, le contenu glisse par-dessus.
+   Mêmes règles que .list-row dans ListPage.css (FilmListItem). */
+.swipe-row {
+  position: relative;
+  overflow: hidden;
+  /* Déborde jusqu'au bord droit de l'écran (padding 1rem du body)
+     pour que le fond rouge touche le bord */
+  margin-right: -1rem;
+}
+
+/* Fond révélé pendant le swipe : seulement la partie découverte, poubelle calée à droite */
+.swipe-action {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0; /* piloté par le swipe */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #dc3545;
+  color: var(--color-light);
+  font-size: 1.3rem;
+}
+
+.swipe-icon {
+  display: flex;
+  flex-shrink: 0;
+  padding-right: 1rem;
+}
+
+.swipe-content {
+  position: relative; /* passe au-dessus de la zone rouge */
+  background-color: var(--color-bg); /* cache la zone rouge au repos */
+  padding-right: 1rem; /* compense le margin-right négatif : le contenu ne bouge pas */
+  touch-action: pan-y; /* le scroll vertical reste au navigateur */
+}

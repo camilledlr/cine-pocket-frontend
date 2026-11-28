@@ -1,0 +1,197 @@
+.ranking-view {
+  padding-bottom: 3rem;
+}
+
+.ranking-view-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.ranking-view-header h1 {
+  margin: 0.25rem 0 0;
+}
+
+.ranking-view-meta {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.ranking-view-empty {
+  margin-top: 2rem;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* ---- Podium : 3 colonnes alignées en bas, la 1re plus grande au centre ---- */
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.podium-step {
+  flex: 1;
+  max-width: 7.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Le n°1 est plus grand que les deux autres */
+.podium-step-1 {
+  max-width: 9rem;
+}
+
+.podium-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 0.6rem;
+  overflow: visible;
+  box-shadow: 0 4px 12px rgba(31, 54, 84, 0.25);
+}
+
+.podium-poster img,
+.podium-poster-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.6rem;
+}
+
+.podium-poster img {
+  display: block;
+  object-fit: cover;
+}
+
+.podium-poster-fallback {
+  display: grid;
+  place-items: center;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Médaille : pastille numérotée à cheval sur le bas de l'affiche */
+.podium-rank {
+  position: absolute;
+  left: 50%;
+  bottom: -0.9rem;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-bg);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.podium-step-1 .podium-rank {
+  width: 2.2rem;
+  height: 2.2rem;
+  bottom: -1.1rem;
+  font-size: 1.1rem;
+  background: var(--color-accent);
+}
+
+.podium-step-2 .podium-rank {
+  background: #b8c2cc;
+}
+
+.podium-step-3 .podium-rank {
+  background: #c98b5a;
+}
+
+.podium-title {
+  margin-top: 1.1rem; /* laisse la place à la médaille */
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  /* 2 lignes max, puis « … » */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.podium-step-1 .podium-title {
+  font-size: 1.05rem;
+}
+
+.podium-rating {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* ---- Suite du classement : liste numérotée ---- */
+.ranking-view-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e5ddcd;
+}
+
+.ranking-view-list li {
+  border-bottom: 1px solid #e5ddcd;
+}
+
+.ranking-view-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.6rem 0.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ranking-view-rank {
+  flex-shrink: 0;
+  width: 1.8rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  opacity: 0.5;
+}
+
+.ranking-view-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bouton « Modifier » sous le titre (même esprit que celui de la section Infos) */
+.ranking-edit-button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(31, 54, 84, 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* En mode modification, la barre d'enregistrement est collée au bas de l'écran */
+.ranking-view.is-editing {
+  padding-bottom: 0;
+}
